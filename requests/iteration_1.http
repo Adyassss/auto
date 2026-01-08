@@ -1,4 +1,4 @@
-### Get Auth token
+### Get Auth token admin
 ### Admin token : YWRtaW46YWRtaW4=
 POST http://localhost:4111/api/v1/auth/login
 Content-Type: application/json
