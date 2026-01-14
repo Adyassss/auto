@@ -6,9 +6,11 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
 import java.util.List;
+
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserCanDepositTest {
     @BeforeAll
@@ -41,17 +43,27 @@ public class UserCanDepositTest {
 
     //Positive cases
     @CsvSource({
-            "1, 100.1",
-            "1, 200.2"
+            "2, 100.1",
+            "2, 200.2"
     })
     @ParameterizedTest
-    public void userCanDeposit(int id, String balance) {
+    public void userCanDeposit(int id, float balance) {
         String requestBody = String.format("""
                 {
                   "id": %d,
                   "balance": %s
                 }
                 """, id, balance);
+        float beforeBalance =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -60,8 +72,20 @@ public class UserCanDepositTest {
                 .post("http://localhost:4111/api/v1/accounts/deposit")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .body("transactions[-1].amount", equalTo(Float.parseFloat(balance)));
+                .statusCode(HttpStatus.SC_OK);
+
+        float afterBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
+        float totalBalance = beforeBalance + balance;
+        assertEquals(totalBalance, afterBalance, 0.001);
     }
 
     // Negative test cases
@@ -73,7 +97,7 @@ public class UserCanDepositTest {
             // Deposit money with a valid user token and invalid amount
             "1, -100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
             // Deposit money with a valid user token and without amount
-            "1,  , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
+            "1, 0 , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
             // Deposit money with a valid user token and zero amount
             "1, 0, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
             // Deposit money with valid user token and amount exceeding maximum limit
@@ -86,12 +110,24 @@ public class UserCanDepositTest {
     })
 
     @ParameterizedTest
-    public void userCantDepositWithInvalidData(String id, String balance, String token, String error) {
+    public void userCantDepositWithInvalidData(String id, float balance, String token, String error) {
         String requestBody = String.format("""
                 {
                 "id": "%s",
                 "balance": "%s"}
                 """, id, balance);
+
+        float beforeBalance =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
+
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
@@ -101,6 +137,19 @@ public class UserCanDepositTest {
                 .then()
                 .assertThat()
                 .statusCode(Integer.parseInt(error));
+
+        float afterBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
+
+        assertEquals(beforeBalance, afterBalance, 0.001);
     }
 }
 

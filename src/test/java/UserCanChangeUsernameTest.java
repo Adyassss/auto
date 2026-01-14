@@ -6,9 +6,12 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
 import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 public class UserCanChangeUsernameTest {
     @BeforeAll
@@ -42,6 +45,15 @@ public class UserCanChangeUsernameTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo("Profile updated successfully"));
+
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                .get("http://localhost:4111/api/v1/customer/profile")
+                .then()
+                .assertThat()
+                .body("name", equalTo(name));
     }
 
     // Negative Cases
@@ -82,5 +94,15 @@ public class UserCanChangeUsernameTest {
                 .then()
                 .assertThat()
                 .statusCode(Integer.parseInt(error));
+
+
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                .get("http://localhost:4111/api/v1/customer/profile")
+                .then()
+                .assertThat()
+                .body("name", not(equalTo(name)));
     }
 }

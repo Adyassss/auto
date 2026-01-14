@@ -6,9 +6,12 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
 import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserCanTransferTest {
     @BeforeAll
@@ -20,11 +23,11 @@ public class UserCanTransferTest {
 
     // Positive cases
     @CsvSource({
-            "1,2,50",
-            "1,2,0.01"
+            "1,2,50.2",
+            "1,2,300.2"
     })
     @ParameterizedTest
-    public void userCanTransferMoney(int senderAccountId, int receiverAccountId, double amount) {
+    public void userCanTransferMoney(int senderAccountId, int receiverAccountId, float amount) {
         String response = String.format("""
                 {
                  "senderAccountId": %d,
@@ -32,6 +35,16 @@ public class UserCanTransferTest {
                  "amount": %s                 
                                   } 
                 """, senderAccountId, receiverAccountId, amount);
+        float beforeBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
@@ -42,7 +55,21 @@ public class UserCanTransferTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("message", equalTo("Transfer successful"))
-                .body("amount", equalTo((float) amount));
+                .body("amount", equalTo(amount));
+
+        float afterBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
+        float expectedAfter = beforeBalance + amount;
+        assertEquals(expectedAfter, afterBalance, 0.001);
+
     }
 
     //Negative cases
@@ -81,6 +108,16 @@ public class UserCanTransferTest {
                  "amount": %s                 
                                   } 
                 """, senderAccountId, receiverAccountId, amount);
+        float beforeBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
         given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
@@ -90,5 +127,17 @@ public class UserCanTransferTest {
                 .then()
                 .assertThat()
                 .statusCode(Integer.parseInt(error));
+
+        float afterBalance =
+                given()
+                        .accept(ContentType.JSON)
+                        .contentType(ContentType.JSON)
+                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
+                        .get("http://localhost:4111/api/v1/customer/profile")
+                        .then()
+                        .extract()
+                        .path("accounts[0].balance");
+
+        assertEquals(beforeBalance, afterBalance, 0.001);
     }
 }
