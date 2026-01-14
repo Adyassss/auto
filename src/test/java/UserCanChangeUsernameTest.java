@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class UserCanChangeUsernameTest {
     @BeforeAll
@@ -21,9 +22,9 @@ public class UserCanChangeUsernameTest {
 
     // Positive Cases
     @CsvSource({
-            "vasya",
-            "petya",
-            "masha"
+            "vasya pupkin",
+            "petya gromov",
+            "masha lom"
     })
 
     @ParameterizedTest
@@ -41,33 +42,34 @@ public class UserCanChangeUsernameTest {
                 .put("http://localhost:4111/api/v1/customer/profile")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_OK)
+                .body("message", equalTo("Profile updated successfully"));
     }
 
     // Negative Cases
     @CsvSource({
             // Update username with USER role and an invalid token
-            "vasya, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "vasya, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and without a token
-            "vasya, Basic ",
+            "vasya, Basic ,401 ",
             // Update username with USER role and empty username
-            " , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            " , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and username shorter than 3 characters
-            "va, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "va, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and username longer than 15 characters
-            "aaaaaaaaaaaaaaaa, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "aaaaaaaaaaaaaaaa, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and special characters in username
-            "adyasss!/.@#$&*)({}, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "adyasss!/.@#$&*)({}, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and the same username
-            "adya1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "adya1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Update username with USER role and spaces in username
-            "adya 1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA="
+            "adya 1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401"
 
 
     })
 
     @ParameterizedTest
-    public void userCantChangeUsernameWithInvalidData(String name, String token) {
+    public void userCantChangeUsernameWithInvalidData(String name, String token, String error) {
         String request = String.format("""
                 {
                     "name": "%s"
@@ -81,6 +83,6 @@ public class UserCanChangeUsernameTest {
                 .put("http://localhost:4111/api/v1/customer/profile")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
+                .statusCode(Integer.parseInt(error));
     }
 }

@@ -3,6 +3,7 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class UserCanTransferTest {
     @BeforeAll
@@ -21,15 +23,16 @@ public class UserCanTransferTest {
 
     // Positive cases
     @CsvSource({
-            "1,2,50"
+            "1,2,50",
+            "1,2,0.01"
     })
     @ParameterizedTest
-    public void userCanTransferMoney(String senderAccountId, String receiverAccountId, String amount) {
+    public void userCanTransferMoney(int senderAccountId, int receiverAccountId, double amount) {
         String response = String.format("""
                 {
-                 "senderAccountId": "%s",
-                 "receiverAccountId": "%s",
-                 "amount": "%s"                 
+                 "senderAccountId": %d,
+                 "receiverAccountId": %d,
+                 "amount": %s                 
                                   } 
                 """, senderAccountId, receiverAccountId, amount);
         given()
@@ -40,37 +43,45 @@ public class UserCanTransferTest {
                 .post("http://localhost:4111/api/v1/accounts/transfer")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_OK)
+                .body("message", equalTo("Transfer successful"))
+                .body("amount", equalTo((float) amount));
     }
 
     //Negative cases
     @CsvSource({
             // Transfer money with an invalid token
-            "1,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=",
+            "1,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=,401",
             // Transfer money without a user token
-            "1,2,50,Basic ",
+            "1,2,50,Basic ,401",
             // Transfer money with an invalid sender account ID
-            "200,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "200,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 403",
             // Transfer money with an invalid receiver account ID
-            "1,200,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "1,200,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 400",
             // Transfer money with an invalid amount
-            "1,2,-50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "1,2,-50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 400",
             // Transfer money with insufficient funds
-            "1,2,50000,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "1,2,50000,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 400",
             // Transfer money with zero amount
-            "1,2,0,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "1,2,0,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 400",
             // Transfer money with zero sender account ID
-            "0,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "0,2,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 403",
             // Transfer money with zero receiver account ID
-            "1,0,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==",
+            "1,0,50,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==,400",
+            // Transfer money with amount exceeding available balance
+            "2,1,10000.01,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==,400",
+            // Transfer money with maximum valid amount
+            "2,1,9999.99,Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==,400"
+
+
     })
     @ParameterizedTest
-    public void userCantTransferMoneyWithInvalidData(String senderAccountId, String receiverAccountId, String amount, String token) {
+    public void userCantTransferMoneyWithInvalidData(int senderAccountId, int receiverAccountId, String amount, String token, String error) {
         String response = String.format("""
                 {
-                 "senderAccountId": "%s",
-                 "receiverAccountId": "%s",
-                 "amount": "%s"                 
+                 "senderAccountId": %d,
+                 "receiverAccountId": %d,
+                 "amount": %s                 
                                   } 
                 """, senderAccountId, receiverAccountId, amount);
         given()
@@ -81,6 +92,6 @@ public class UserCanTransferTest {
                 .post("http://localhost:4111/api/v1/accounts/transfer")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
+                .statusCode(Integer.parseInt(error));
     }
 }

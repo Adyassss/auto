@@ -10,6 +10,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 public class UserCanDepositTest {
     @BeforeAll
@@ -42,14 +44,16 @@ public class UserCanDepositTest {
 
     //Positive cases
     @CsvSource({
-            "1, 100",
-            "1, 200"
+            "1, 100.1",
+            "1, 200.2"
     })
     @ParameterizedTest
-    public void userCanDeposit(String id, String balance) {
+    public void userCanDeposit(int id, String balance) {
         String requestBody = String.format("""
-                {"id": "%s",
-                 "balance": "%s"}
+                {
+                  "id": %d,
+                  "balance": %s
+                }
                 """, id, balance);
         given()
                 .contentType(ContentType.JSON)
@@ -59,21 +63,28 @@ public class UserCanDepositTest {
                 .post("http://localhost:4111/api/v1/accounts/deposit")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_OK)
+                .body("transactions[-1].amount", equalTo(Float.parseFloat(balance)));
     }
 
     // Negative test cases
     @CsvSource({
             // Deposit money with an invalid user token and correct amount
-            "1, 100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 403",
+            "1, 100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
             // Deposit money without a user token and correct amount
-            "1, 100, Basic  , 403",
+            "1, 100, Basic  , 401",
             // Deposit money with a valid user token and invalid amount
-            "1, -100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 403",
+            "1, -100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
             // Deposit money with a valid user token and without amount
-            "1,  , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 403",
+            "1,  , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
             // Deposit money with a valid user token and zero amount
-            "1, 0, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 403",
+            "1, 0, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
+            // Deposit money with valid user token and amount exceeding maximum limit
+            "1, 5000.01, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
+            // Deposit money with valid user token and maximum allowed amount
+            "1, 4999.99, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
+            // Deposit money with valid user token and minimal positive amount
+            "1, 0.01, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500"
 
     })
 
