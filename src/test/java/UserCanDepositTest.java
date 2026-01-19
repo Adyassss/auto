@@ -1,155 +1,111 @@
+import generators.RandomData;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import models.*;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import requests.AdminCreateUser;
+import requests.DepositRequest;
+import requests.UserCreateAccRequest;
+import requests.UserProfileRequest;
+import specs.RequestSpec;
+import specs.ResponseSpec;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserCanDepositTest {
-    @BeforeAll
-    public static void setupRestAssured() {
-        RestAssured.filters(
-                List.of(new RequestLoggingFilter(), new ResponseLoggingFilter())
-        );
-    }
-
-    @CsvSource({
-            "testik,verysTRongPassword33$"
-    })
-    @ParameterizedTest
-    public void authUser(String username, String password) {
-        String requestBody = String.format("""
-                {"username": "%s",
-                 "password": "%s"}
-                """, username, password);
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/auth/login")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==");
-
-    }
+public class UserCanDepositTest extends BaseTest {
 
     //Positive cases
-    @CsvSource({
-            "2, 100.1",
-            "2, 200.2"
-    })
+    @MethodSource("generators.RandomData#PositiveAmount")
     @ParameterizedTest
-    public void userCanDeposit(int id, float balance) {
-        String requestBody = String.format("""
-                {
-                  "id": %d,
-                  "balance": %s
-                }
-                """, id, balance);
-        float beforeBalance =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                        .get("http://localhost:4111/api/v1/customer/profile")
-                        .then()
-                        .extract()
-                        .path("accounts[0].balance");
+    public void userCanDeposit(float amount) {
 
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
+                .post(AdminCanCreateUserRequest.builder()
+                        .username(RandomData.getUsername())
+                        .password(RandomData.getPassword())
+                        .role(UserRole.USER.toString())
+                        .build())
+                .extract()
+                .header("Authorization");
 
-        float afterBalance =
-                given()
-                        .accept(ContentType.JSON)
-                        .contentType(ContentType.JSON)
-                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                        .get("http://localhost:4111/api/v1/customer/profile")
-                        .then()
-                        .extract()
-                        .path("accounts[0].balance");
+        int senderId = new UserCreateAccRequest(RequestSpec.userRequest(userToken),ResponseSpec.created())
+                .post(CreateUserRequestModel
+                        .builder().build())
+                .extract()
+                .path("id");
 
-        float totalBalance = beforeBalance + balance;
-        assertEquals(totalBalance, afterBalance, 0.001);
+        float balanceBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("accounts[0].balance");
+
+        new DepositRequest(RequestSpec.userRequest(userToken),ResponseSpec.ok())
+                .post(UserDepositModelRequest.builder()
+                        .id(senderId)
+                        .balance(amount)
+                        .build());
+
+        float balanceAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("accounts[0].balance");
+
+        softly.assertThat(balanceAfter)
+                .isEqualTo(amount+balanceBefore);
+
+        softly.assertAll();
     }
 
-    // Negative test cases
-    @CsvSource({
-            // Deposit money with an invalid user token and correct amount
-            "1, 100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Deposit money without a user token and correct amount
-            "1, 100, Basic  , 401",
-            // Deposit money with a valid user token and invalid amount
-            "1, -100, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
-            // Deposit money with a valid user token and without amount
-            "1, 0 , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
-            // Deposit money with a valid user token and zero amount
-            "1, 0, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
-            // Deposit money with valid user token and amount exceeding maximum limit
-            "1, 5000.01, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
-            // Deposit money with valid user token and maximum allowed amount
-            "1, 4999.99, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500",
-            // Deposit money with valid user token and minimal positive amount
-            "1, 0.01, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==, 500"
-
-    })
-
+//     Negative test cases
+    @MethodSource("generators.RandomData#NegativeAmount")
     @ParameterizedTest
-    public void userCantDepositWithInvalidData(String id, float balance, String token, String error) {
-        String requestBody = String.format("""
-                {
-                "id": "%s",
-                "balance": "%s"}
-                """, id, balance);
+    public void userCantDepositWithInvalidData(float amount) {
 
-        float beforeBalance =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                        .get("http://localhost:4111/api/v1/customer/profile")
-                        .then()
-                        .extract()
-                        .path("accounts[0].balance");
+        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
+                .post(AdminCanCreateUserRequest.builder()
+                        .username(RandomData.getUsername())
+                        .password(RandomData.getPassword())
+                        .role(UserRole.USER.toString())
+                        .build())
+                .extract()
+                .header("Authorization");
 
+        int senderId = new UserCreateAccRequest(RequestSpec.userRequest(userToken),ResponseSpec.created())
+                .post(CreateUserRequestModel
+                        .builder().build())
+                .extract()
+                .path("id");
 
-        given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                .statusCode(Integer.parseInt(error));
+        float balanceBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("accounts[0].balance");
 
-        float afterBalance =
-                given()
-                        .accept(ContentType.JSON)
-                        .contentType(ContentType.JSON)
-                        .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                        .get("http://localhost:4111/api/v1/customer/profile")
-                        .then()
-                        .extract()
-                        .path("accounts[0].balance");
+        new DepositRequest(RequestSpec.userRequest(userToken),ResponseSpec.badRequest())
+                .post(UserDepositModelRequest.builder()
+                        .id(senderId)
+                        .balance(amount)
+                        .build());
 
+        float balanceAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("accounts[0].balance");
 
-        assertEquals(beforeBalance, afterBalance, 0.001);
+        softly.assertThat(balanceAfter)
+                .isEqualTo(balanceBefore);
+
+        softly.assertAll();
     }
 }
 

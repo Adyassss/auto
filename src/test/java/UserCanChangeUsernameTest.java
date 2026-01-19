@@ -1,108 +1,84 @@
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeAll;
+import generators.RandomData;
+import models.AdminCanCreateUserRequest;
+import models.UserChangeNameRequestModel;
+import models.UserProfileRequestModel;
+import models.UserRole;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import requests.AdminCreateUser;
+import requests.UserChangeNameRequest;
+import requests.UserProfileRequest;
+import specs.RequestSpec;
+import specs.ResponseSpec;
 
-import java.util.List;
+public class UserCanChangeUsernameTest extends BaseTest {
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+    @Test
+    public void userCanChangeUsername() {
+        String name = RandomData.getName();
 
-public class UserCanChangeUsernameTest {
-    @BeforeAll
-    public static void setupRestAssured() {
-        RestAssured.filters(
-                List.of(new RequestLoggingFilter(), new ResponseLoggingFilter())
-        );
+        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
+                .post(AdminCanCreateUserRequest.builder()
+                        .username(RandomData.getUsername())
+                        .password(RandomData.getPassword())
+                        .role(UserRole.USER.toString())
+                        .build())
+                .extract()
+                .header("Authorization");
+
+        new UserChangeNameRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(UserChangeNameRequestModel.builder()
+                        .name(name)
+                        .build());
+
+        String nameAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("name");
+
+        softly.assertThat(nameAfter)
+                .as("name")
+                .isEqualTo(name);
+
+        softly.assertAll();
+
     }
 
-    // Positive Cases
-    @CsvSource({
-            "vasya pupkin",
-            "petya gromov",
-            "masha lom"
-    })
-
     @ParameterizedTest
-    public void userCanChangeUsername(String name) {
-        String request = String.format("""
-                {
-                    "name": "%s"
-                }
-                """, name);
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                .body(request)
-                .put("http://localhost:4111/api/v1/customer/profile")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .body("message", equalTo("Profile updated successfully"));
+    @MethodSource("generators.RandomData#NegativeNames")
+    public void userCantChangeUsernameWithInvalidData(String invalidName) {
+        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
+                .post(AdminCanCreateUserRequest.builder()
+                        .username(RandomData.getUsername())
+                        .password(RandomData.getPassword())
+                        .role(UserRole.USER.toString())
+                        .build())
+                .extract()
+                .header("Authorization");
 
-        given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                .get("http://localhost:4111/api/v1/customer/profile")
-                .then()
-                .assertThat()
-                .body("name", equalTo(name));
-    }
+        String nameBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("name");
 
-    // Negative Cases
-    @CsvSource({
-            // Update username with USER role and an invalid token
-            "vasya, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and without a token
-            "vasya, Basic ,401 ",
-            // Update username with USER role and empty username
-            " , Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and username shorter than 3 characters
-            "va, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and username longer than 15 characters
-            "aaaaaaaaaaaaaaaa, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and special characters in username
-            "adyasss!/.@#$&*)({}, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and the same username
-            "adya1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401",
-            // Update username with USER role and spaces in username
-            "adya 1997, Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA=, 401"
+        new UserChangeNameRequest(RequestSpec.userRequest(userToken), ResponseSpec.badRequest())
+                .post(UserChangeNameRequestModel.builder()
+                        .name(invalidName)
+                        .build());
+
+        String nameAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
+                .post(new UserProfileRequestModel())
+                .extract()
+                .path("name");
 
 
-    })
+        softly.assertThat(nameAfter)
+                .as("name")
+                .isEqualTo(nameBefore);
 
-    @ParameterizedTest
-    public void userCantChangeUsernameWithInvalidData(String name, String token, String error) {
-        String request = String.format("""
-                {
-                    "name": "%s"
-                }
-                """, name);
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", token)
-                .body(request)
-                .put("http://localhost:4111/api/v1/customer/profile")
-                .then()
-                .assertThat()
-                .statusCode(Integer.parseInt(error));
-
-
-        given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Basic dGVzdGlrOnZlcnlzVFJvbmdQYXNzd29yZDMzJA==")
-                .get("http://localhost:4111/api/v1/customer/profile")
-                .then()
-                .assertThat()
-                .body("name", not(equalTo(name)));
+        softly.assertAll();
     }
 }
+
+
