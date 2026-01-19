@@ -1,14 +1,6 @@
 import generators.RandomData;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
 import models.*;
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import requests.AdminCreateUser;
 import requests.DepositRequest;
@@ -17,10 +9,6 @@ import requests.UserProfileRequest;
 import specs.RequestSpec;
 import specs.ResponseSpec;
 
-import java.util.List;
-
-import static io.restassured.RestAssured.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserCanDepositTest extends BaseTest {
 

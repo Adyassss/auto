@@ -1,8 +1,5 @@
 package specs;
-
-import io.restassured.builder.ResponseBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 

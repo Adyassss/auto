@@ -1,12 +1,9 @@
 package requests;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.BaseModel;
 import models.UserDepositModelRequest;
-import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
 

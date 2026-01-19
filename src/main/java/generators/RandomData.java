@@ -2,7 +2,6 @@ package generators;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.util.Locale;
 import java.util.stream.Stream;
 
 public class RandomData {

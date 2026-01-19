@@ -1,10 +1,8 @@
 package requests;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.BaseModel;
 import models.UserCanTransferRequestModel;
 
 import static io.restassured.RestAssured.given;
