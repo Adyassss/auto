@@ -1,52 +1,53 @@
 import generators.RandomData;
 import models.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.AdminCreateUser;
-import requests.DepositRequest;
-import requests.UserCreateAccRequest;
-import requests.UserProfileRequest;
+import requests.skelethon.Endpoint;
+import requests.skelethon.requests.CrudRequesters;
+import requests.steps.AdminSteps;
 import specs.RequestSpec;
 import specs.ResponseSpec;
 
 
 public class UserCanDepositTest extends BaseTest {
+//    Positive cases
+//    @MethodSource("generators.RandomData#PositiveAmount")
+//    @ParameterizedTest
+    @Test
+    public void userCanDeposit() {
+        float amount = RandomData.getAmount();
+        String userToken = AdminSteps.createUser();
 
-    //Positive cases
-    @MethodSource("generators.RandomData#PositiveAmount")
-    @ParameterizedTest
-    public void userCanDeposit(float amount) {
-
-        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
-                .post(AdminCanCreateUserRequest.builder()
-                        .username(RandomData.getUsername())
-                        .password(RandomData.getPassword())
-                        .role(UserRole.USER.toString())
-                        .build())
-                .extract()
-                .header("Authorization");
-
-        int senderId = new UserCreateAccRequest(RequestSpec.userRequest(userToken),ResponseSpec.created())
+        int senderId = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_CREATE_ACC,
+                ResponseSpec.created())
                 .post(CreateUserRequestModel
                         .builder().build())
                 .extract()
                 .path("id");
 
-        float balanceBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        float balanceBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
-                .path("accounts[0].balance");
+                .path("accounts.find { it.id == " + senderId + " }.balance");
 
-        new DepositRequest(RequestSpec.userRequest(userToken),ResponseSpec.ok())
+        new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.DEPOSIT_USER,
+                ResponseSpec.ok())
                 .post(UserDepositModelRequest.builder()
                         .id(senderId)
                         .balance(amount)
                         .build());
 
-        float balanceAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        float balanceAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
-                .path("accounts[0].balance");
+                .path("accounts.find { it.id == " + senderId + " }.balance");
 
         softly.assertThat(balanceAfter)
                 .isEqualTo(amount+balanceBefore);
@@ -54,46 +55,49 @@ public class UserCanDepositTest extends BaseTest {
         softly.assertAll();
     }
 
-//     Negative test cases
+ //    Negative test cases
     @MethodSource("generators.RandomData#NegativeAmount")
     @ParameterizedTest
     public void userCantDepositWithInvalidData(float amount) {
 
-        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
-                .post(AdminCanCreateUserRequest.builder()
-                        .username(RandomData.getUsername())
-                        .password(RandomData.getPassword())
-                        .role(UserRole.USER.toString())
-                        .build())
-                .extract()
-                .header("Authorization");
+        String userToken = AdminSteps.createUser();
 
-        int senderId = new UserCreateAccRequest(RequestSpec.userRequest(userToken),ResponseSpec.created())
+        int senderId = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_CREATE_ACC,
+                ResponseSpec.created())
                 .post(CreateUserRequestModel
                         .builder().build())
                 .extract()
                 .path("id");
 
-        float balanceBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        float balanceBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
-                .path("accounts[0].balance");
+                .path("accounts.find { it.id == " + senderId + " }.balance");
 
-        new DepositRequest(RequestSpec.userRequest(userToken),ResponseSpec.badRequest())
+        new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.DEPOSIT_USER,
+                ResponseSpec.badRequest())
                 .post(UserDepositModelRequest.builder()
                         .id(senderId)
                         .balance(amount)
                         .build());
 
-        float balanceAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        float balanceAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
-                .path("accounts[0].balance");
+                .path("accounts.find { it.id == " + senderId + " }.balance");
 
         softly.assertThat(balanceAfter)
                 .isEqualTo(balanceBefore);
 
         softly.assertAll();
+
     }
 }
+
 

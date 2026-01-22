@@ -6,4 +6,5 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class UserProfileRequestModel extends BaseModel{
+
 }

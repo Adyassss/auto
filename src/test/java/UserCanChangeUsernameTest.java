@@ -1,14 +1,11 @@
 import generators.RandomData;
-import models.AdminCanCreateUserRequest;
 import models.UserChangeNameRequestModel;
-import models.UserProfileRequestModel;
-import models.UserRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.AdminCreateUser;
-import requests.UserChangeNameRequest;
-import requests.UserProfileRequest;
+import requests.skelethon.Endpoint;
+import requests.skelethon.requests.CrudRequesters;
+import requests.steps.AdminSteps;
 import specs.RequestSpec;
 import specs.ResponseSpec;
 
@@ -18,22 +15,19 @@ public class UserCanChangeUsernameTest extends BaseTest {
     public void userCanChangeUsername() {
         String name = RandomData.getName();
 
-        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
-                .post(AdminCanCreateUserRequest.builder()
-                        .username(RandomData.getUsername())
-                        .password(RandomData.getPassword())
-                        .role(UserRole.USER.toString())
-                        .build())
-                .extract()
-                .header("Authorization");
+        String userToken = AdminSteps.createUser();
 
-        new UserChangeNameRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(UserChangeNameRequestModel.builder()
+        new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.CHANGE_NAME,
+                ResponseSpec.ok())
+                .put(UserChangeNameRequestModel.builder()
                         .name(name)
                         .build());
 
-        String nameAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        String nameAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
                 .path("name");
 
@@ -48,27 +42,26 @@ public class UserCanChangeUsernameTest extends BaseTest {
     @ParameterizedTest
     @MethodSource("generators.RandomData#NegativeNames")
     public void userCantChangeUsernameWithInvalidData(String invalidName) {
-        String userToken = new AdminCreateUser(RequestSpec.adminRequest(), ResponseSpec.created())
-                .post(AdminCanCreateUserRequest.builder()
-                        .username(RandomData.getUsername())
-                        .password(RandomData.getPassword())
-                        .role(UserRole.USER.toString())
-                        .build())
-                .extract()
-                .header("Authorization");
+        String userToken = AdminSteps.createUser();
 
-        String nameBefore = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        String nameBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
                 .path("name");
 
-        new UserChangeNameRequest(RequestSpec.userRequest(userToken), ResponseSpec.badRequest())
-                .post(UserChangeNameRequestModel.builder()
+        new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.CHANGE_NAME,
+                ResponseSpec.badRequest())
+                .put(UserChangeNameRequestModel.builder()
                         .name(invalidName)
                         .build());
 
-        String nameAfter = new UserProfileRequest(RequestSpec.userRequest(userToken), ResponseSpec.ok())
-                .post(new UserProfileRequestModel())
+        String nameAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
+                Endpoint.USER_PROFILE,
+                ResponseSpec.ok())
+                .get()
                 .extract()
                 .path("name");
 
@@ -80,5 +73,6 @@ public class UserCanChangeUsernameTest extends BaseTest {
         softly.assertAll();
     }
 }
+
 
 

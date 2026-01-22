@@ -15,5 +15,5 @@ public class AdminCanCreateUserResponse extends BaseModel {
     private String password;
     private String name;
     private String role;
-    private String [] accounts;
+    private String[] accounts;
 }
