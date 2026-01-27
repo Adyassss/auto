@@ -1,5 +1,4 @@
 package requests.skelethon.interfaces;
-
 import models.BaseModel;
 
 public interface CrudEndpointInterface {

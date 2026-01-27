@@ -1,3 +1,5 @@
+package api;
+
 import generators.RandomData;
 import models.UserChangeNameRequestModel;
 import org.junit.jupiter.api.Test;

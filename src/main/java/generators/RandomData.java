@@ -21,6 +21,11 @@ public class RandomData {
                 RandomStringUtils.randomAlphabetic(4);
     }
 
+    public static String negativeName (){
+        return RandomStringUtils.randomAlphabetic(5) +
+                RandomStringUtils.randomAlphabetic(4);
+    }
+
     public static Stream<Float> NegativeAmount() {
         return Stream.of(
                 -0.1f,

@@ -53,6 +53,13 @@
             <version>1.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>7.14.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

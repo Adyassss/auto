@@ -13,7 +13,6 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
         super(requestSpecification, endpoint, responseSpecification);
         this.crudRequesters = new CrudRequesters(requestSpecification, endpoint, responseSpecification);
     }
-
     @Override
     public T post(BaseModel baseModel) {
         return (T) crudRequesters.post(baseModel).extract().as(endpoint.getResponseModel());

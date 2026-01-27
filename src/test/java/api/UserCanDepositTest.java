@@ -1,3 +1,5 @@
+package api;
+
 import generators.RandomData;
 import models.*;
 import org.junit.jupiter.api.Test;
@@ -53,6 +55,7 @@ public class UserCanDepositTest extends BaseTest {
                 .isEqualTo(amount+balanceBefore);
 
         softly.assertAll();
+
     }
 
  //    Negative test cases

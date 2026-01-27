@@ -13,7 +13,6 @@ public class CrudRequesters extends HttpRequest implements CrudEndpointInterface
     public CrudRequesters(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
         super(requestSpecification, endpoint, responseSpecification);
     }
-
     @Override
     public ValidatableResponse post(BaseModel baseModel) {
         var body = baseModel == null ? "" : baseModel;

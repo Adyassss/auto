@@ -1,5 +1,4 @@
 package requests.skelethon;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import models.*;
