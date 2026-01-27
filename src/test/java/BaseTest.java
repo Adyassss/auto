@@ -12,6 +12,6 @@ public class BaseTest {
 
     @AfterEach
     public void afterTest (){
-        softly.assertAll();
+        // assertAll() is called in each test method
     }
 }

@@ -6,8 +6,6 @@ import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import generators.RandomData;
 import models.AdminCanCreateUserRequest;
-import models.UserProfileRequestModel;
-import models.UserProfileResponseModel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;

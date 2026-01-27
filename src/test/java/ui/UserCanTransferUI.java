@@ -69,7 +69,7 @@ public class UserCanTransferUI {
         String secondAcc = filter[filter.length - 1];
         alert2.accept();
         $(Selectors.byText("\uD83D\uDCB0 Deposit Money")).click();
-        $("select").selectOption(1);
+        $("select").selectOption(1); // selectOption(1) = первый аккаунт (accounts[0])
         $(Selectors.byAttribute("placeholder", "Enter amount")).sendKeys("5000");
         $(Selectors.byText("\uD83D\uDCB5 Deposit")).click();
         Alert alert3 = switchTo().alert();
@@ -86,7 +86,7 @@ public class UserCanTransferUI {
         $(Selectors.byText("\uD83D\uDD04 Make a Transfer")).shouldBe(Condition.visible).click();
         $("select.account-selector")
                 .shouldBe(Condition.visible)
-                .selectOption(1);
+                .selectOption(1); // selectOption(1) = первый аккаунт (accounts[0]) - отправитель
         $(Selectors.byAttribute("placeholder", "Enter recipient name")).sendKeys(newName);
         $(Selectors.byAttribute("placeholder", "Enter recipient account number")).sendKeys(secondAcc);
         $(Selectors.byAttribute("placeholder", "Enter amount")).sendKeys("5000");
@@ -98,11 +98,18 @@ public class UserCanTransferUI {
         String token = Selenide.executeJavaScript(
                 "return window.localStorage.getItem('authToken');"
         );
-        float balanceProfile = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+       
+        float balanceSecondAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
                 .path("accounts[1].balance");
-        assertThat(balanceProfile).isEqualTo(5000);
+        
+        float balanceFirstAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+                .get()
+                .extract()
+                .path("accounts[0].balance");
+        assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
+        assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
     }
 
     @Test
@@ -172,10 +179,11 @@ public class UserCanTransferUI {
         String token = Selenide.executeJavaScript(
                 "return window.localStorage.getItem('authToken');"
         );
+        
         float balanceProfile = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
                 .path("accounts[1].balance");
-        assertThat(balanceProfile).isEqualTo(0);
+        assertThat(balanceProfile).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
     }
 }

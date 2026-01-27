@@ -7,5 +7,6 @@ import lombok.Data;
 @Data
 @Builder
 public class CreateUserRequestModel extends BaseModel {
+    @Builder.Default
     private String dummy = "";
 }

@@ -17,12 +17,17 @@ public class RandomModelGenerator {
                 field.setAccessible(true);
 
                 Object value;
+                @SuppressWarnings("null")
                 GeneratingRule rule = field.getAnnotation(GeneratingRule.class);
 
                 if (rule != null) {
                     value = generateFromRegex(rule.regex(), field.getType());
                 } else {
                     value = generateRandomValue(field);
+                }
+                
+                if (value == null) {
+                    continue;
                 }
 
                 field.set(instance, value);
