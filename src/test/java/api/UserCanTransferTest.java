@@ -1,77 +1,37 @@
 package api;
 
 import generators.RandomData;
-import models.*;
+import models.comparison.ModelAssertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.skelethon.Endpoint;
-import requests.skelethon.requests.CrudRequesters;
 import requests.steps.AdminSteps;
-import specs.RequestSpec;
-import specs.ResponseSpec;
+import requests.steps.UserDepositSteps;
+import requests.steps.UserProfileSteps;
+import requests.steps.UserTransferSteps;
 
-public class UserCanTransferTest extends BaseTest {
+public class UserCanTransferTest {
 
-//    // Positive cases
     @Test
     public void userCanTransferMoney() {
         float amount = RandomData.getAmount();
 
         String userToken = AdminSteps.createUser();
 
-        int senderId = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_CREATE_ACC,
-                ResponseSpec.created())
-                .post(CreateUserRequestModel
-                        .builder().build())
-                        .extract()
-                        .path("id");
+        int senderId = UserProfileSteps.createUserProfileId(userToken);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.DEPOSIT_USER,
-                ResponseSpec.ok())
-                .post(UserDepositModelRequest.builder()
-                        .id(senderId)
-                        .balance(amount)
-                        .build());
+        UserDepositSteps.depositMoney(userToken, senderId, amount);
 
-        float balanceBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("accounts.find { it.id == " + senderId + " }.balance");
+        float balanceBefore = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
 
-        int receiverId = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_CREATE_ACC,
-                ResponseSpec.created())
-                .post(CreateUserRequestModel
-                        .builder().build())
-                .extract()
-                .path("id");
+        int receiverId = UserProfileSteps.createUserProfileId(userToken);
 
+        UserTransferSteps.transferMoney(userToken, senderId, receiverId, amount);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.TRANSFER_USER,
-                ResponseSpec.ok())
-                .post(UserCanTransferRequestModel.builder()
-                        .senderAccountId(senderId)
-                        .receiverAccountId(receiverId)
-                        .amount(amount)
-                        .build());
+        float balanceAfter = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
 
-        float balanceAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("accounts.find { it.id == " + senderId + " }.balance");
-
-        softly.assertThat(balanceBefore-amount)
-                .isEqualTo(balanceAfter);
-
-        softly.assertAll();
+        ModelAssertions.assertThatModels(balanceBefore-amount, balanceAfter).match();
     }
 
     //Negative cases
@@ -83,57 +43,18 @@ public class UserCanTransferTest extends BaseTest {
 
         String userToken = AdminSteps.createUser();
 
-        int senderId = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_CREATE_ACC,
-                ResponseSpec.created())
-                .post(CreateUserRequestModel
-                        .builder().build())
-                .extract()
-                .path("id");
+        int senderId = UserProfileSteps.createUserProfileId(userToken);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.DEPOSIT_USER,
-                ResponseSpec.ok())
-                .post(UserDepositModelRequest.builder()
-                        .id(senderId)
-                        .balance(positiveAmount)
-                        .build());
+        UserDepositSteps.depositMoney(userToken, senderId, positiveAmount);
 
-        float balanceBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("accounts.find { it.id == " + senderId + " }.balance");
+        float balanceBefore = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
 
-        int receiverId = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_CREATE_ACC,
-                ResponseSpec.created())
-                .post(CreateUserRequestModel
-                        .builder().build())
-                .extract()
-                .path("id");
+        int receiverId = UserProfileSteps.createUserProfileId(userToken);
 
+        UserTransferSteps.transferMoneyWithInvalidData(userToken, senderId, receiverId, amount);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.TRANSFER_USER,
-                ResponseSpec.badRequest())
-                .post(UserCanTransferRequestModel.builder()
-                        .senderAccountId(senderId)
-                        .receiverAccountId(receiverId)
-                        .amount(amount)
-                        .build());
+        float balanceAfter = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
 
-        float balanceAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("accounts.find { it.id == " + senderId + " }.balance");
-
-        softly.assertThat(balanceBefore)
-                .isEqualTo(balanceAfter);
-
-        softly.assertAll();
+        ModelAssertions.assertThatModels(balanceBefore, balanceAfter).match();
     }
 }

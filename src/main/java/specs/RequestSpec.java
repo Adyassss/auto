@@ -9,6 +9,7 @@ import java.util.List;
 
 public class RequestSpec {
     private RequestSpec (){}
+    @SuppressWarnings("null")
     public static RequestSpecBuilder defaultRequest (){
         return new RequestSpecBuilder()
                 .setBaseUri(Config.getProperty("server") + Config.getProperty("apiVersion"))

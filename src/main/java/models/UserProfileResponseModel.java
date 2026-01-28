@@ -4,6 +4,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

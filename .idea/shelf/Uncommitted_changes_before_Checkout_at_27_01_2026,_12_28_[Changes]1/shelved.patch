@@ -1,0 +1,170 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>org.example</groupId>\n    <artifactId>nbank-tests</artifactId>\n    <version>1.0-SNAPSHOT</version>\n\n    <properties>\n        <maven.compiler.source>17</maven.compiler.source>\n        <maven.compiler.target>17</maven.compiler.target>\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n    </properties>\n    <dependencies>\n        <dependency>\n            <groupId>org.junit.jupiter</groupId>\n            <artifactId>junit-jupiter</artifactId>\n            <version>5.9.1</version>\n            <scope>test</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>io.rest-assured</groupId>\n            <artifactId>rest-assured</artifactId>\n            <version>5.5.6</version>\n        </dependency>\n\n        <dependency>\n            <groupId>org.projectlombok</groupId>\n            <artifactId>lombok</artifactId>\n            <version>1.18.30</version>\n            <scope>provided</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>com.fasterxml.jackson.core</groupId>\n            <artifactId>jackson-databind</artifactId>\n            <version>2.20.0</version>\n            <scope>compile</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>org.assertj</groupId>\n            <artifactId>assertj-core</artifactId>\n            <version>3.27.6</version>\n        </dependency>\n\n        <dependency>\n            <groupId>com.github.curious-odd-man</groupId>\n            <artifactId>rgxgen</artifactId>\n            <version>1.4</version>\n        </dependency>\n\n    </dependencies>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 5687315e6d69035ae37f584537b3f44e314376fe)
++++ b/pom.xml	(date 1769505801244)
+@@ -1,7 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project xmlns="http://maven.apache.org/POM/4.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
++                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
++
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <groupId>org.example</groupId>
+@@ -9,44 +11,63 @@
+     <version>1.0-SNAPSHOT</version>
+ 
+     <properties>
+-        <maven.compiler.source>17</maven.compiler.source>
+-        <maven.compiler.target>17</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
++        <maven.compiler.release>17</maven.compiler.release>
++        <junit.jupiter.version>5.9.1</junit.jupiter.version>
++        <selenide.version>7.14.0</selenide.version>
++        <rest.assured.version>5.5.6</rest.assured.version>
++        <assertj.version>3.27.6</assertj.version>
++        <lombok.version>1.18.30</lombok.version>
++        <jackson.version>2.20.0</jackson.version>
+     </properties>
++
+     <dependencies>
++
++        <!-- JUnit 5 -->
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter</artifactId>
+-            <version>5.9.1</version>
++            <version>${junit.jupiter.version}</version>
+             <scope>test</scope>
+         </dependency>
+ 
++        <!-- Selenide -->
++        <dependency>
++            <groupId>com.codeborne</groupId>
++            <artifactId>selenide</artifactId>
++            <version>${selenide.version}</version>
++        </dependency>
++
++        <!-- REST Assured -->
+         <dependency>
+             <groupId>io.rest-assured</groupId>
+             <artifactId>rest-assured</artifactId>
+-            <version>5.5.6</version>
++            <version>${rest.assured.version}</version>
++        </dependency>
++
++        <!-- AssertJ -->
++        <dependency>
++            <groupId>org.assertj</groupId>
++            <artifactId>assertj-core</artifactId>
++            <version>${assertj.version}</version>
+         </dependency>
+ 
++        <!-- Lombok -->
+         <dependency>
+             <groupId>org.projectlombok</groupId>
+             <artifactId>lombok</artifactId>
+-            <version>1.18.30</version>
++            <version>${lombok.version}</version>
+             <scope>provided</scope>
+         </dependency>
+ 
++        <!-- Jackson -->
+         <dependency>
+             <groupId>com.fasterxml.jackson.core</groupId>
+             <artifactId>jackson-databind</artifactId>
+-            <version>2.20.0</version>
+-            <scope>compile</scope>
++            <version>${jackson.version}</version>
+         </dependency>
+ 
+-        <dependency>
+-            <groupId>org.assertj</groupId>
+-            <artifactId>assertj-core</artifactId>
+-            <version>3.27.6</version>
+-        </dependency>
+-
++        <!-- Random regex generator -->
+         <dependency>
+             <groupId>com.github.curious-odd-man</groupId>
+             <artifactId>rgxgen</artifactId>
+@@ -55,4 +76,30 @@
+ 
+     </dependencies>
+ 
+-</project>
+\ No newline at end of file
++    <build>
++        <plugins>
++
++            <!-- Фиксация Java 17 (КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ) -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <version>3.11.0</version>
++                <configuration>
++                    <release>17</release>
++                </configuration>
++            </plugin>
++
++            <!-- JUnit 5 runner -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-surefire-plugin</artifactId>
++                <version>3.2.5</version>
++                <configuration>
++                    <useModulePath>false</useModulePath>
++                </configuration>
++            </plugin>
++
++        </plugins>
++    </build>
++
++</project>
+Index: src/main/java/generators/RandomData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package generators;\n\nimport org.apache.commons.lang3.RandomStringUtils;\n\nimport java.util.stream.Stream;\n\npublic class RandomData {\n    private RandomData (){}\n\n    public static String getUsername (){\n        return RandomStringUtils.randomAlphabetic(10);\n    }\n\n    public static String getPassword (){\n        return  RandomStringUtils.randomAlphabetic(5).toUpperCase() +\n                RandomStringUtils.randomAlphabetic(5).toLowerCase() +\n                RandomStringUtils.randomNumeric(3) + \"#$\";\n    }\n    public static String getName (){\n        return RandomStringUtils.randomAlphabetic(5) + \" \" +\n                RandomStringUtils.randomAlphabetic(4);\n    }\n\n    public static Stream<Float> NegativeAmount() {\n        return Stream.of(\n                -0.1f,\n                0f,\n                5000.1f\n        );\n    }\n\n    public static Stream<Float> PositiveAmount() {\n        return Stream.of(\n                4999.9f,\n                5000.0f,\n                0.1f\n        );\n    }\n\n    public static Stream<String> NegativeNames() {\n        return Stream.of(\n                \"AliceJohnson\",\n                \"Bo\",\n                \"CharliefdsdfdfB\",\n                \"Дмитрий_Иванов\",\n                \"\"\n        );\n    }\n\n    public static float getAmount(){\n        return Math.round(Math.random() * 1000 * 100) / 100f;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/generators/RandomData.java b/src/main/java/generators/RandomData.java
+--- a/src/main/java/generators/RandomData.java	(revision 5687315e6d69035ae37f584537b3f44e314376fe)
++++ b/src/main/java/generators/RandomData.java	(date 1769505880789)
+@@ -21,6 +21,11 @@
+                 RandomStringUtils.randomAlphabetic(4);
+     }
+ 
++    public static String negativeName (){
++        return RandomStringUtils.randomAlphabetic(5)  +
++                RandomStringUtils.randomAlphabetic(4);
++    }
++
+     public static Stream<Float> NegativeAmount() {
+         return Stream.of(
+                 -0.1f,
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 5687315e6d69035ae37f584537b3f44e314376fe)
++++ /dev/null	(revision 5687315e6d69035ae37f584537b3f44e314376fe)
+@@ -1,10 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Ignored default folder with query files
+-/queries/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/

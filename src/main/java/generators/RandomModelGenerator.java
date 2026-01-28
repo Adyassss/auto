@@ -16,16 +16,14 @@ public class RandomModelGenerator {
             for (Field field : getAllFields(clazz)) {
                 field.setAccessible(true);
 
-                Object value;
                 GeneratingRule rule = field.getAnnotation(GeneratingRule.class);
-
-                if (rule != null) {
-                    value = generateFromRegex(rule.regex(), field.getType());
-                } else {
-                    value = generateRandomValue(field);
+                Object value = rule != null 
+                    ? generateFromRegex(rule.regex(), field.getType())
+                    : generateRandomValue(field);
+                
+                if (value != null) {
+                    field.set(instance, value);
                 }
-
-                field.set(instance, value);
             }
 
             return instance;

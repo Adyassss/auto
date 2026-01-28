@@ -14,21 +14,25 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
         this.crudRequesters = new CrudRequesters(requestSpecification, endpoint, responseSpecification);
     }
     @Override
+    @SuppressWarnings("unchecked")
     public T post(BaseModel baseModel) {
         return (T) crudRequesters.post(baseModel).extract().as(endpoint.getResponseModel());
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get() {
         return (T) crudRequesters.get().extract().as(endpoint.getResponseModel());
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T put(BaseModel baseModel) {
         return (T) crudRequesters.put(baseModel).extract().as(endpoint.getResponseModel());
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T delete(int id) {
         return (T) crudRequesters.delete(id).extract().as(endpoint.getResponseModel());
     }
