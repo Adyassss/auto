@@ -1,41 +1,27 @@
 import generators.RandomData;
-import models.UserChangeNameRequestModel;
+import models.comparison.ModelAssertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.skelethon.Endpoint;
-import requests.skelethon.requests.CrudRequesters;
 import requests.steps.AdminSteps;
-import specs.RequestSpec;
-import specs.ResponseSpec;
+import requests.steps.ChangeNameSteps;
+import requests.steps.UserProfileSteps;
 
-public class UserCanChangeUsernameTest extends BaseTest {
+
+public class UserCanChangeUsernameTest {
 
     @Test
     public void userCanChangeUsername() {
         String name = RandomData.getName();
 
         String userToken = AdminSteps.createUser();
+        
+        ChangeNameSteps.changeName(userToken, name);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.CHANGE_NAME,
-                ResponseSpec.ok())
-                .put(UserChangeNameRequestModel.builder()
-                        .name(name)
-                        .build());
+        String nameAfter = UserProfileSteps.getUserProfileName(userToken);
 
-        String nameAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("name");
-
-        softly.assertThat(nameAfter)
-                .as("name")
-                .isEqualTo(name);
-
-        softly.assertAll();
+        ModelAssertions.assertThatModels(name, nameAfter).match();
 
     }
 
@@ -44,35 +30,12 @@ public class UserCanChangeUsernameTest extends BaseTest {
     public void userCantChangeUsernameWithInvalidData(String invalidName) {
         String userToken = AdminSteps.createUser();
 
-        String nameBefore = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("name");
+        String nameBefore = UserProfileSteps.getUserProfileName(userToken);
 
-        new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.CHANGE_NAME,
-                ResponseSpec.badRequest())
-                .put(UserChangeNameRequestModel.builder()
-                        .name(invalidName)
-                        .build());
+        ChangeNameSteps.changeNameWithInvalidData(userToken, invalidName);
 
-        String nameAfter = new CrudRequesters(RequestSpec.userRequest(userToken),
-                Endpoint.USER_PROFILE,
-                ResponseSpec.ok())
-                .get()
-                .extract()
-                .path("name");
+        String nameAfter = UserProfileSteps.getUserProfileName(userToken);
 
-
-        softly.assertThat(nameAfter)
-                .as("name")
-                .isEqualTo(nameBefore);
-
-        softly.assertAll();
+        ModelAssertions.assertThatModels(nameBefore, nameAfter).match();
     }
 }
-
-
-

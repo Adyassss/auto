@@ -1,7 +1,10 @@
 package models.comparison;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class ModelComparator {
 
@@ -42,7 +45,7 @@ public class ModelComparator {
             Object value1 = getFieldValue(request, requestField);
             Object value2 = getFieldValue(response, responseField);
 
-            if (!Objects.equals(String.valueOf(value1), String.valueOf(value2))) {
+            if (!valuesEqual(value1, value2)) {
                 mismatches.add(new Mismatch(requestField + " -> " + responseField));
             }
         }
@@ -50,12 +53,28 @@ public class ModelComparator {
     }
 
     private static Object getFieldValue(Object obj, String fieldName) {
-        try {
-            Field field = obj.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return field.get(obj);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to get value for field: " + fieldName, e);
+        Class<?> clazz = obj.getClass();
+        while (clazz != null && clazz != Object.class) {
+            try {
+                Field field = clazz.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                return field.get(obj);
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to get value for field: " + fieldName, e);
+            }
         }
+        throw new RuntimeException("Field not found: " + fieldName + " in " + obj.getClass().getSimpleName());
+    }
+
+    private static boolean valuesEqual(Object value1, Object value2) {
+        if (Objects.equals(value1, value2)) {
+            return true;
+        }
+        if (value1 instanceof Number && value2 instanceof Number) {
+            return ((Number) value1).doubleValue() == ((Number) value2).doubleValue();
+        }
+        return Objects.equals(String.valueOf(value1), String.valueOf(value2));
     }
 }

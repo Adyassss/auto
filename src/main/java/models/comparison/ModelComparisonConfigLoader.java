@@ -2,7 +2,11 @@ package models.comparison;
 
 import java.io.InputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class ModelComparisonConfigLoader {
 
@@ -40,8 +44,14 @@ public class ModelComparisonConfigLoader {
                 if (target.length != 2) continue;
 
                 String responseClassName = target[0].trim();
-                List<String> fields = Arrays.asList(target[1].split(","));
-
+                String[] fieldParts = target[1].split(",");
+                List<String> fields = new ArrayList<>(fieldParts.length);
+                for (String part : fieldParts) {
+                    String trimmed = part.trim();
+                    if (!trimmed.isEmpty()) {
+                        fields.add(trimmed);
+                    }
+                }
                 rules.put(key.trim(), new ComparisonRule(responseClassName, fields));
             }
 

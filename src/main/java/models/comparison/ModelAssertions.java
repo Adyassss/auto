@@ -1,8 +1,10 @@
 package models.comparison;
 
 import org.assertj.core.api.AbstractAssert;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ModelAssertions extends AbstractAssert<ModelAssertions, Object> {
 
@@ -20,17 +22,17 @@ public class ModelAssertions extends AbstractAssert<ModelAssertions, Object> {
     }
 
     public ModelAssertions match() {
-        // Загружаем конфиг
         ModelComparisonConfigLoader configLoader = new ModelComparisonConfigLoader("model-comparison.properties");
         ModelComparisonConfigLoader.ComparisonRule rule = configLoader.getRuleFor(request.getClass().getSimpleName());
 
         if (rule != null) {
-            // Строим mapping: requestField -> responseField
+            // Сравнение по правилам из конфига (модель -> модель)
             Map<String, String> fieldMappings = new HashMap<>();
             for (String f : rule.getFields()) {
-                String[] parts = f.split("=");
-                if (parts.length == 2) {
-                    fieldMappings.put(parts[0].trim(), parts[1].trim());
+                String trimmed = f.trim();
+                int eq = trimmed.indexOf('=');
+                if (eq > 0 && eq < trimmed.length() - 1) {
+                    fieldMappings.put(trimmed.substring(0, eq).trim(), trimmed.substring(eq + 1).trim());
                 }
             }
 
@@ -38,6 +40,11 @@ public class ModelAssertions extends AbstractAssert<ModelAssertions, Object> {
 
             if (result.hasMismatches()) {
                 throw new AssertionError("Model mismatch: " + result.getMismatches());
+            }
+        } else {
+            // Нет правила в конфиге — сравниваем как простые значения (например, два String)
+            if (!Objects.equals(request, response)) {
+                throw new AssertionError("Values do not match: expected [" + request + "] but was [" + response + "]");
             }
         }
 
