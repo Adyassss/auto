@@ -1,72 +1,44 @@
 package ui;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
-import generators.RandomData;
-import models.AdminCanCreateUserRequest;
-import org.junit.jupiter.api.BeforeAll;
+import api.generators.RandomData;
+import api.models.AdminCanCreateUserRequest;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Alert;
-import requests.skelethon.Endpoint;
-import requests.skelethon.requests.CrudRequesters;
-import specs.RequestSpec;
-import specs.ResponseSpec;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requests.CrudRequesters;
+import api.specs.RequestSpec;
+import api.specs.ResponseSpec;
+import ui.pages.AdminPanel;
+import ui.pages.DepositPage;
+import ui.pages.LoginPage;
+import ui.pages.UserDashboard;
 
-import java.util.Map;
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanDepositUI {
-    @BeforeAll
-    public static void setupSelenoid() {
-        Configuration.baseUrl = "http://localhost:3000";
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-        Configuration.browserCapabilities.setCapability("selenoid:options",
-                Map.of("enableVNC", true, "enableLog", true));
-    }
+public class UserCanDepositUI extends BaseUITest {
 
     @Test
     public void UserDepositWithCorrectDataTest() {
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.builder()
-                .username("admin")
-                .password("admin")
-                .build();
-        Selenide.open("/login");
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(admin.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(admin.getPassword());
-        $("button").click();
-        $(Selectors.byText("Admin Panel")).shouldBe(Condition.visible);
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(name);
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(password);
-        $(".btn.btn-primary.w-100").click();
-        Alert alert = switchTo().alert();
-        assertThat(alert.getText()).contains("User created successfully!");
-        alert.accept();
-        $(".btn.btn-danger").click();
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(name);
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(password);
-        $(".btn.btn-primary.w-100")
-                .shouldBe(Condition.visible)
-                .click();
-        $(Selectors.byText("User Dashboard")).shouldBe(Condition.visible);
-        $(Selectors.byText("➕ Create New Account")).shouldBe(Condition.visible).click();
-        Alert alert1 = switchTo().alert();
-        assertThat(alert1.getText()).contains("New Account Created! Account Number:");
-        alert1.accept();
-        $(Selectors.byText("\uD83D\uDCB0 Deposit Money")).click();
-        $("select").selectOption(1);
-        $(Selectors.byAttribute("placeholder", "Enter amount")).sendKeys("5000");
-        $(Selectors.byText("\uD83D\uDCB5 Deposit")).click();
-        Alert alert2 = switchTo().alert();
-        assertThat(alert2.getText()).contains("Successfully deposited $5000 to account");
-        alert2.accept();
+        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
+        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        .getPage(AdminPanel.class)
+        .ensureAdminPanelVisible()
+        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout();
+        
+        new LoginPage().open().login(name, password)
+        .getPage(UserDashboard.class)
+        .ensureDashboardVisible()
+        .createAccount()
+        .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
+        .getPage(DepositPage.class)
+        .open()
+        .ensureDepositPageVisible()
+        .depositMoney()
+        .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage());
+        
+        
         String token = Selenide.executeJavaScript(
                 "return window.localStorage.getItem('authToken');"
         );
@@ -78,41 +50,26 @@ public class UserCanDepositUI {
     }
     @Test
     public void UserDepositWithNotCorrectDataTest() {
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.builder()
-                .username("admin")
-                .password("admin")
-                .build();
-        Selenide.open("/login");
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(admin.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(admin.getPassword());
-        $("button").click();
-        $(Selectors.byText("Admin Panel")).shouldBe(Condition.visible);
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(name);
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(password);
-        $(".btn.btn-primary.w-100").click();
-        Alert alert = switchTo().alert();
-        assertThat(alert.getText()).contains("User created successfully!");
-        alert.accept();
-        $(".btn.btn-danger").click();
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(name);
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(password);
-        $(".btn.btn-primary.w-100")
-                .shouldBe(Condition.visible)
-                .click();
-        $(Selectors.byText("User Dashboard")).shouldBe(Condition.visible);
-        $(Selectors.byText("➕ Create New Account")).shouldBe(Condition.visible).click();
-        Alert alert1 = switchTo().alert();
-        assertThat(alert1.getText()).contains("New Account Created! Account Number:");
-        alert1.accept();
-        $(Selectors.byText("\uD83D\uDCB0 Deposit Money")).click();
-        $("select").selectOption(1);
-        $(Selectors.byAttribute("placeholder", "Enter amount")).sendKeys("5001");
-        $(Selectors.byText("\uD83D\uDCB5 Deposit")).click();
-        Alert alert2 = switchTo().alert();
-        assertThat(alert2.getText()).contains("❌ Please deposit less or equal to 5000$.");
-        alert2.accept();
+        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
+        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        .getPage(AdminPanel.class)
+        .ensureAdminPanelVisible()
+        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout();
+        
+        new LoginPage().open().login(name, password)
+        .getPage(UserDashboard.class)
+        .ensureDashboardVisible()
+        .createAccount()
+        .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
+        .getPage(DepositPage.class)
+        .open()
+        .ensureDepositPageVisible()
+        .depositMoneyWithInvalidAmount()
+        .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_DEPOSIT_AMOUNT.getMessage());
+        
+        
         String token = Selenide.executeJavaScript(
                 "return window.localStorage.getItem('authToken');"
         );
