@@ -1,8 +1,9 @@
 package ui;
 
 import com.codeborne.selenide.Selenide;
+
+import api.configs.Config;
 import api.generators.RandomData;
-import api.models.AdminCanCreateUserRequest;
 import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.CrudRequesters;
@@ -21,13 +22,12 @@ public class UserCanDepositUI extends BaseUITest {
     public void UserDepositWithCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
-        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
         .getPage(AdminPanel.class)
         .ensureAdminPanelVisible()
-        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout();
-        
-        new LoginPage().open().login(name, password)
+        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
+        .getPage(LoginPage.class)
+        .open().login(name, password)
         .getPage(UserDashboard.class)
         .ensureDashboardVisible()
         .createAccount()
@@ -46,19 +46,18 @@ public class UserCanDepositUI extends BaseUITest {
                 .get()
                 .extract()
                 .path("accounts[0].balance");
-        assertThat(balanceProfile).isEqualTo(5000);
+        assertThat(balanceProfile).isEqualTo(5000.0f);
     }
     @Test
     public void UserDepositWithNotCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
-        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
         .getPage(AdminPanel.class)
         .ensureAdminPanelVisible()
-        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout();
-        
-        new LoginPage().open().login(name, password)
+        .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
+        .getPage(LoginPage.class)
+        .open().login(name, password)
         .getPage(UserDashboard.class)
         .ensureDashboardVisible()
         .createAccount()
@@ -77,6 +76,6 @@ public class UserCanDepositUI extends BaseUITest {
                 .get()
                 .extract()
                 .path("accounts[0].balance");
-        assertThat(balanceProfile).isEqualTo(0);
+        assertThat(balanceProfile).isEqualTo(0.0f);
     }
 }

@@ -1,15 +1,17 @@
 package ui.pages;
 
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import api.generators.RandomData;
-import ui.BaseUITest;
-
+import api.models.UserProfileResponseModel;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requests.ValidatedCrudRequester;
+import api.specs.RequestSpec;
+import api.specs.ResponseSpec;
 
 import static com.codeborne.selenide.Selenide.$;
-
-import com.codeborne.selenide.Condition;
 
 public class TransferPage extends BasePage<TransferPage> {
     
@@ -24,11 +26,36 @@ public class TransferPage extends BasePage<TransferPage> {
         return "/transfer";
     }
 
+    public String getSecondAcc() {
+        String token = Selenide.executeJavaScript(
+                "return window.localStorage.getItem('authToken');"
+        );
+        return new ValidatedCrudRequester<UserProfileResponseModel>(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+                .get()
+                .getAccounts()
+                .stream()
+                .skip(1)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Second account not found"))
+                .getAccountNumber();
+    }
+
 
     public TransferPage transferMoney() {
         accountSelector.selectOption(1);
         reciepAcc.sendKeys(newName);
-        reciepAccNumber.sendKeys(BaseUITest.secondAcc);
+        reciepAccNumber.sendKeys(getSecondAcc());
+        amountInput.sendKeys("5000");
+        confirmCheck.click();
+        buttonSendTransfer.click();
+        return this;
+    }
+  
+
+    public TransferPage transferMoneyWithNotCorrectAmount() {
+        accountSelector.selectOption(1);
+        reciepAcc.sendKeys(newName);
+        reciepAccNumber.sendKeys(getSecondAcc());
         amountInput.sendKeys("10001");
         confirmCheck.click();
         buttonSendTransfer.click();

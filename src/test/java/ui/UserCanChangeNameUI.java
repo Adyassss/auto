@@ -2,8 +2,8 @@ package ui;
 
 import com.codeborne.selenide.Selenide;
 
+import api.configs.Config;
 import api.generators.RandomData;
-import api.models.AdminCanCreateUserRequest;
 import api.models.UserProfileResponseModel;
 
 import org.junit.jupiter.api.Test;
@@ -26,17 +26,14 @@ public class UserCanChangeNameUI extends BaseUITest {
         String password = RandomData.getPassword();
         String name = RandomData.getName();
 
-        // Логинимся под админом и создаем юзера
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
-        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
                 .getPage(AdminPanel.class)
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
                 .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage())
-                .logout();
-
-        // Логинимся под юзером и меняем имя
-        new LoginPage().open().login(username, password)
+                .logout()
+                .getPage(LoginPage.class)
+                .open().login(username, password)
                 .getPage(UserDashboard.class)
                 .ensureDashboardVisible()
                 .changeName(name)
@@ -49,7 +46,7 @@ public class UserCanChangeNameUI extends BaseUITest {
         String nameProfile = new ValidatedCrudRequester<UserProfileResponseModel>(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .getName();
-        assertThat(nameProfile.equals(name)).isTrue();
+        assertThat(nameProfile).isEqualTo(name);
     }
 
 
@@ -58,10 +55,7 @@ public class UserCanChangeNameUI extends BaseUITest {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.negativeName();
-
-        // Логинимся под админом и создаем юзера
-        AdminCanCreateUserRequest admin = AdminCanCreateUserRequest.getAdmin();
-        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
                 .getPage(AdminPanel.class)
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
@@ -73,7 +67,7 @@ public class UserCanChangeNameUI extends BaseUITest {
                 .getPage(UserDashboard.class)
                 .ensureDashboardVisible()
                 .changeName(name)
-                .checkAllertMassageAndAccept(BankAllerts.ENTER_VALID_NAME.getMessage());
+                .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_NAME.getMessage());
 
 
         

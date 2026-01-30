@@ -12,7 +12,8 @@ public enum BankAllerts {
     DEPOSIT_MONEY_SUCCESSFULLY("Successfully deposited $5000 to account"),
     ACCOUNT_CREATED_SUCCESSFULLY("New Account Created! Account Number:"),
     NOT_CORRECT_DEPOSIT_AMOUNT("❌ Please deposit less or equal to 5000$."),
-    TRANSFER_MONEY_SUCCESSFULLY("✅ Successfully transferred");
+    TRANSFER_MONEY_SUCCESSFULLY("✅ Successfully transferred"),
+    NOT_CORRECT_TRANSFER_AMOUNT("❌ Error: Transfer amount cannot exceed 10000");
     private final String message;
 
     BankAllerts(String message) {

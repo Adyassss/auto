@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BasePage<T extends BasePage<T>> {
     public abstract String url();
+    public static String secondAcc = "";
     protected SelenideElement usernameInput = $(Selectors.byAttribute("placeholder", "Username"));
     protected SelenideElement passwordInput = $(Selectors.byAttribute("placeholder", "Password"));
     protected SelenideElement loginButton = $("button");
@@ -22,6 +23,15 @@ public abstract class BasePage<T extends BasePage<T>> {
 
     @SuppressWarnings("unchecked")
     public T checkAllertMassageAndAccept(String expectedMessage) {
+        int count = 0;
+        if (expectedMessage.contains("New Account Created! Account Number:"))
+        {
+            count++;
+        }
+        if (count >= 1) {
+            String[] filter = expectedMessage.split(" ");
+            secondAcc = filter[filter.length - 1];
+        }
         var alert = switchTo().alert();
         assertThat(alert.getText()).contains(expectedMessage);
         alert.accept();
