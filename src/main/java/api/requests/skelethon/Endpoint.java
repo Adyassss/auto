@@ -20,12 +20,12 @@ public enum Endpoint {
     DEPOSIT_USER(
                     "accounts/deposit",
                     UserDepositModelRequest.class,
-                    UserDepositModelResponse.class
+                    UserProfileModelResponse.class
     ),
     TRANSFER_USER(
             "accounts/transfer",
             UserDepositModelRequest.class,
-            UserDepositModelResponse.class
+            UserProfileModelResponse.class
     ),
     CHANGE_NAME(
             "customer/profile",
@@ -34,7 +34,7 @@ public enum Endpoint {
     ),
     USER_PROFILE(
             "customer/profile",
-            UserProfileRequestModel.class,
+            BaseModel.class,
             UserProfileResponseModel.class
     );
 

@@ -1,6 +1,6 @@
 package ui;
 
-import com.codeborne.selenide.Selenide;
+import api.models.UserProfileModelResponse;
 
 import api.configs.Config;
 import api.generators.RandomData;
@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserCanDepositUI extends BaseUITest {
 
     @Test
-    public void UserDepositWithCorrectDataTest() {
+    public void userDepositWithCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
         .getPage(AdminPanel.class)
         .ensureAdminPanelVisible()
         .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
@@ -39,20 +39,20 @@ public class UserCanDepositUI extends BaseUITest {
         .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage());
         
         
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
-        float balanceProfile = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+        String token = getAuthToken();
+
+        UserProfileModelResponse profileUserAfterDeposit = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
-                .path("accounts[0].balance");
+                .as(UserProfileModelResponse.class);
+        float balanceProfile = profileUserAfterDeposit.getAccounts().get(0).getBalance();
         assertThat(balanceProfile).isEqualTo(5000.0f);
     }
     @Test
-    public void UserDepositWithNotCorrectDataTest() {
+    public void userDepositWithNotCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
         .getPage(AdminPanel.class)
         .ensureAdminPanelVisible()
         .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
@@ -69,13 +69,12 @@ public class UserCanDepositUI extends BaseUITest {
         .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_DEPOSIT_AMOUNT.getMessage());
         
         
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
-        float balanceProfile = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+        String token = getAuthToken();
+        UserProfileModelResponse profileUserAfterDeposit = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
-                .path("accounts[0].balance");
+                .as(UserProfileModelResponse.class);
+        float balanceProfile = profileUserAfterDeposit.getAccounts().get(0).getBalance();
         assertThat(balanceProfile).isEqualTo(0.0f);
     }
 }

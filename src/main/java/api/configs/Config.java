@@ -7,6 +7,10 @@ import java.util.Properties;
 public class Config {
     private static final Config INSTANCE = new Config();
     private final Properties properties = new Properties();
+    public static final String ADMIN_USERNAME_KEY = "admin.username";
+    public static final String ADMIN_PASSWORD_KEY = "admin.password";
+    public static final String BASE_URL_KEY = "baseUrl";
+    public static final String BROWSER_KEY = "browser";
 
     private Config(){
         try(InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){

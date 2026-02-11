@@ -1,6 +1,5 @@
 package ui;
 
-import com.codeborne.selenide.Selenide;
 
 import api.configs.Config;
 import api.generators.RandomData;
@@ -21,12 +20,12 @@ public class UserCanChangeNameUI extends BaseUITest {
 
 
     @Test
-    public void UserChangeNameWithCorrectDataTest() {
+    public void userChangeNameWithCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
 
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
                 .getPage(AdminPanel.class)
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
@@ -40,9 +39,7 @@ public class UserCanChangeNameUI extends BaseUITest {
                 .checkAllertMassageAndAccept(BankAllerts.NAME_UPDATED_SUCCESSFULLY.getMessage());
         
 
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
+        String token = getAuthToken();
         String nameProfile = new ValidatedCrudRequester<UserProfileResponseModel>(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .getName();
@@ -51,11 +48,11 @@ public class UserCanChangeNameUI extends BaseUITest {
 
 
     @Test
-    public void UserChangeNameWithNotCorrectDataTest() {
+    public void userChangeNameWithNotCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.negativeName();
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
                 .getPage(AdminPanel.class)
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
@@ -71,9 +68,7 @@ public class UserCanChangeNameUI extends BaseUITest {
 
 
         
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
+        String token = getAuthToken();
         UserProfileResponseModel nameProfile = new ValidatedCrudRequester<UserProfileResponseModel>
         (RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get();

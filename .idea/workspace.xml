@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Senior tests">
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/TransactionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_28_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_29_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserProfileModelResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserProfileRequestModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +111,8 @@
     "JUnit.UserCanChangeNameUI.UserChangeNameWithCorrectDataTest.executor": "Run",
     "JUnit.UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanChangeNameUI.executor": "Run",
+    "JUnit.UserCanChangeNameUI.userChangeNameWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.adminCreateUser.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.userCanChangeUsername (1).executor": "Run",
@@ -124,6 +137,8 @@
     "JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest.executor": "Run",
     "JUnit.UserCanDepositUI.UserDepositWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanDepositUI.executor": "Run",
+    "JUnit.UserCanDepositUI.userDepositWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanTransfer.userCanTransferMoney.executor": "Run",
     "JUnit.UserCanTransferTest.executor": "Run",
     "JUnit.UserCanTransferTest.userCanTransferMoney (1).executor": "Run",
@@ -139,14 +154,17 @@
     "JUnit.UserCanTransferUI.UserTransferWithCorrectDataTest.executor": "Run",
     "JUnit.UserCanTransferUI.UserTransferWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanTransferUI.executor": "Run",
+    "JUnit.UserCanTransferUI.userTransferWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "improved-ui-tests",
+    "git-widget-placeholder": "#5 on improved-ui-tests",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/adya/IdeaProjects/nbank-tests",
     "onboarding.tips.debug.path": "/Users/adya/IdeaProjects/nbank-tests/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -154,8 +172,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest">
-    <configuration name="UserCanChangeNameUI" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest">
+    <configuration name="UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -165,28 +183,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="ui" />
       <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUI" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUI" />
-      <option name="METHOD_NAME" value="UserChangeNameWithNotCorrectDataTest" />
+      <option name="METHOD_NAME" value="userChangeNameWithNotCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanDepositUI.UserDepositWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanDepositUI.userDepositWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -196,26 +199,55 @@
       </extension>
       <option name="PACKAGE_NAME" value="ui" />
       <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
-      <option name="METHOD_NAME" value="UserDepositWithCorrectDataTest" />
+      <option name="METHOD_NAME" value="userDepositWithCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanDepositUI.userDepositWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UserCanTransferTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
+      <option name="METHOD_NAME" value="userDepositWithNotCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferTest.userCanTransferMoney" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanTransferUI.userTransferWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UserCanTransferTest" />
-      <option name="METHOD_NAME" value="userCanTransferMoney" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
+      <option name="METHOD_NAME" value="userTransferWithCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanTransferUI.userTransferWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
+      <option name="METHOD_NAME" value="userTransferWithNotCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -223,11 +255,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserCanTransferTest.userCanTransferMoney" />
-        <item itemvalue="JUnit.UserCanTransferTest" />
-        <item itemvalue="JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanChangeNameUI" />
+        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" />
       </list>
     </recent_temporary>
   </component>

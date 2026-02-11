@@ -3,6 +3,7 @@ package ui;
 import java.util.Map;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.Alert;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +27,10 @@ public class BaseUITest extends BaseTest {
         assertThat(alert.getText()).contains(bankAllert);
         alert.accept();
         return (T) this;
+    }
+    public static String getAuthToken () {
+        return Selenide.executeJavaScript(
+                "return window.localStorage.getItem('authToken');");
     }
 
 

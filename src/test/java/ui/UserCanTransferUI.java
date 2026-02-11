@@ -1,6 +1,6 @@
 package ui;
 
-import com.codeborne.selenide.Selenide;
+import api.models.UserProfileModelResponse;
 
 import api.configs.Config;
 import api.generators.RandomData;
@@ -22,11 +22,11 @@ public class UserCanTransferUI extends BaseUITest {
     
 
     @Test
-    public void UserTransferWithCorrectDataTest() {
+    public void userTransferWithCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
         .getPage(AdminPanel.class)
         .ensureAdminPanelVisible()
         .createUser(username, password)
@@ -54,63 +54,71 @@ public class UserCanTransferUI extends BaseUITest {
         
         
        
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
+        String token = getAuthToken();
        
-        float balanceSecondAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+        UserProfileModelResponse profileSecondAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
-                .path("accounts[1].balance");
-        
-        float balanceFirstAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+                .as(UserProfileModelResponse.class);
+        float balanceSecondAccount = profileSecondAccount.getAccounts().get(1).getBalance();
+
+        UserProfileModelResponse profileFirstAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
-                .path("accounts[0].balance");
+                .as(UserProfileModelResponse.class);
+
+        float balanceFirstAccount = profileSecondAccount.getAccounts().get(0).getBalance();
         assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
         assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
     }
 
     @Test
-    public void UserTransferWithNotCorrectDataTest() {
+    public void userTransferWithNotCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
-        new LoginPage().open().login(Config.getProperty("admin.username"), Config.getProperty("admin.password"))
-        .getPage(AdminPanel.class)
-        .ensureAdminPanelVisible()
-        .createUser(username, password)
-        .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
-        .getPage(LoginPage.class)
-        .open()
-        .login(username, password)
-        .getPage(UserDashboard.class)
-        .ensureDashboardVisible()
-        .createAccount()
-        .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
-        .createAccount()
-        .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
-        .getPage(UserDashboard.class)
-        .open()
-        .changeName(name)
-        .getPage(DepositPage.class)
-        .open()
-        .depositMoney()
-        .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage())
-        .getPage(TransferPage.class)
-        .open()
-        .transferMoneyWithNotCorrectAmount()
-        .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_TRANSFER_AMOUNT.getMessage());
-        
+        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
+                .getPage(AdminPanel.class)
+                .ensureAdminPanelVisible()
+                .createUser(username, password)
+                .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
+                .getPage(LoginPage.class)
+                .open()
+                .login(username, password)
+                .getPage(UserDashboard.class)
+                .ensureDashboardVisible()
+                .createAccount()
+                .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
+                .createAccount()
+                .checkAllertMassageAndAccept(BankAllerts.ACCOUNT_CREATED_SUCCESSFULLY.getMessage())
+                .getPage(UserDashboard.class)
+                .open()
+                .changeName(name)
+                .getPage(DepositPage.class)
+                .open()
+                .depositMoney()
+                .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage())
+                .getPage(TransferPage.class)
+                .open()
+                .transferMoneyWithNotCorrectAmount()
+                .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_TRANSFER_AMOUNT.getMessage());
 
-        String token = Selenide.executeJavaScript(
-                "return window.localStorage.getItem('authToken');"
-        );
-        
-        float balanceProfile = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+
+        String token = getAuthToken();
+
+        UserProfileModelResponse profileSecondAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get()
                 .extract()
-                .path("accounts[0].balance");
-        assertThat(balanceProfile).isEqualTo(5000.0f);
+                .as(UserProfileModelResponse.class);
+        float balanceSecondAccount = profileSecondAccount.getAccounts().get(0).getBalance();
+
+        UserProfileModelResponse profileFirstAccount = new CrudRequesters(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+                .get()
+                .extract()
+                .as(UserProfileModelResponse.class);
+
+        float balanceFirstAccount = profileSecondAccount.getAccounts().get(1).getBalance();
+        assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
+        assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
     }
 }
