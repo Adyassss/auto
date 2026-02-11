@@ -67,7 +67,7 @@ public class UserCanTransferUI extends BaseUITest {
                 .extract()
                 .as(UserProfileModelResponse.class);
 
-        float balanceFirstAccount = profileSecondAccount.getAccounts().get(0).getBalance();
+        float balanceFirstAccount = profileFirstAccount.getAccounts().get(0).getBalance();
         assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
         assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
     }
