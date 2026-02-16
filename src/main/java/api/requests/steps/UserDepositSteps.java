@@ -8,6 +8,10 @@ import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
 public class UserDepositSteps extends BaseSteps {
+    public UserDepositSteps(String username, String password) {
+        super(username, password);
+    }
+
     public static ValidatableResponse depositMoney(String userToken, int senderId, float amount){
         return new CrudRequesters(RequestSpec.userRequest(userToken),
         Endpoint.DEPOSIT_USER,
