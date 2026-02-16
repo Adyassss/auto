@@ -7,7 +7,7 @@ import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
-public class UserDepositSteps {
+public class UserDepositSteps extends BaseSteps {
     public static ValidatableResponse depositMoney(String userToken, int senderId, float amount){
         return new CrudRequesters(RequestSpec.userRequest(userToken),
         Endpoint.DEPOSIT_USER,

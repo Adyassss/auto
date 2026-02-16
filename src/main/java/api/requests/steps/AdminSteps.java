@@ -7,7 +7,11 @@ import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
-public class AdminSteps {
+public class AdminSteps extends BaseSteps{
+    public AdminSteps(String username, String password) {
+        super(username, password);
+    }
+
     public static String createToken (){
         AdminCanCreateUserRequest randomUser = RandomModelGenerator.generate(AdminCanCreateUserRequest.class);
         return new CrudRequesters(RequestSpec.adminRequest(),

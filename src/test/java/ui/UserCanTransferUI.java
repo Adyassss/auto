@@ -2,8 +2,8 @@ package ui;
 
 import api.models.UserProfileModelResponse;
 
-import api.configs.Config;
 import api.generators.RandomData;
+import common.annotations.AdminSession;
 import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.CrudRequesters;
@@ -19,15 +19,14 @@ import ui.pages.UserDashboard;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserCanTransferUI extends BaseUITest {
-    
 
     @Test
+    @AdminSession
     public void userTransferWithCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-        .getPage(AdminPanel.class)
+        new AdminPanel().open()
         .ensureAdminPanelVisible()
         .createUser(username, password)
         .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
@@ -73,12 +72,12 @@ public class UserCanTransferUI extends BaseUITest {
     }
 
     @Test
+    @AdminSession
     public void userTransferWithNotCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-                .getPage(AdminPanel.class)
+        new AdminPanel().open()
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
                 .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()

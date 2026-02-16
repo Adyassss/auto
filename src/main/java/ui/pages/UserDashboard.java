@@ -30,6 +30,11 @@ public class UserDashboard extends BasePage<UserDashboard> {
         return this;
     }
 
+    public UserDashboard ensureNameDisplayed(String name) {
+        $(Selectors.byText(name)).shouldBe(Condition.visible);
+        return this;
+    }
+
     public UserDashboard createAccount() {
         createAccountButton.shouldBe(Condition.visible).click();
         return this;

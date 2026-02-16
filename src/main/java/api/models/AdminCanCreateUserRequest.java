@@ -2,17 +2,14 @@ package api.models;
 
 import api.configs.Config;
 import api.generators.GeneratingRule;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class AdminCanCreateUserRequest extends BaseModel {
     @GeneratingRule(regex = "^[A-Za-z0-9]{3,15}$")
     private String username;
@@ -25,10 +22,8 @@ public class AdminCanCreateUserRequest extends BaseModel {
 
     private String name;
 
-    public static AdminCanCreateUserRequest getAdmin (){
-       return AdminCanCreateUserRequest.builder()
-                .username(Config.getProperty("admin.username"))
-                .password(Config.getProperty("admin.password"))
-                .build();
+    public static AdminCanCreateUserRequest getAdmin() {
+        return AdminCanCreateUserRequest.builder().username(Config.getProperty(Config.ADMIN_USERNAME_KEY))
+                .password(Config.getProperty(Config.ADMIN_PASSWORD_KEY)).build();
     }
 }

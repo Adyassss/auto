@@ -8,7 +8,11 @@ import api.requests.skelethon.requests.ValidatedCrudRequester;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
-public class UserProfileSteps {
+public class UserProfileSteps extends BaseSteps {
+    public UserProfileSteps(String username, String password) {
+        super(username, password);
+    }
+
     public static String getUserProfileName(String userToken) {
         return new ValidatedCrudRequester<UserProfileResponseModel>(RequestSpec.userRequest(userToken),
                 Endpoint.USER_PROFILE,

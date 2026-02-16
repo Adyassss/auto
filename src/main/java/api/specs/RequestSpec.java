@@ -1,5 +1,8 @@
 package api.specs;
 import api.configs.Config;
+import api.models.LoginUserRequest;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requests.CrudRequesters;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -7,7 +10,10 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
+
 public class RequestSpec {
+     static String authToken;
     private RequestSpec (){}
     @SuppressWarnings("null")
     public static RequestSpecBuilder defaultRequest (){
@@ -16,6 +22,9 @@ public class RequestSpec {
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()));
+    }
+    public static RequestSpecification unauthSpec() {
+        return defaultRequest().build();
     }
 
     public static RequestSpecification adminRequest(){
@@ -30,4 +39,35 @@ public class RequestSpec {
                 .build();
     }
 
-}
+
+    public static void authAsUser(LoginUserRequest request) {
+         authToken = given()
+                .spec(defaultRequest().build())
+                .body(request)
+                .post("/auth/login")
+                .then()
+                 .spec(ResponseSpec.ok())
+                .extract()
+                .path("token");
+    }
+
+    public static RequestSpecification authorizedRequest() {
+        return defaultRequest()
+                .addHeader("Authorization", "Bearer " + authToken)
+                .build();
+    }
+
+    public static String getUserAuthHeader(String username, String password) {
+        String userAuthHeader;
+            userAuthHeader = new CrudRequesters(
+                    RequestSpec.unauthSpec(),
+                    Endpoint.LOGIN,
+                    ResponseSpec.ok())
+                    .post(LoginUserRequest.builder().username(username).password(password).build())
+                    .extract()
+                    .header("Authorization");
+            return userAuthHeader;
+        }
+    }
+
+
