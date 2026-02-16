@@ -1,4 +1,4 @@
-### Get Auth token admsin
+### Get Auth token admin
 ### Admin token : YWRtaW46YWRtaW4=
 POST http://localhost:4111/api/v1/auth/login
 Content-Type: application/json
@@ -7,6 +7,7 @@ Content-Type: application/json
   "username": "admin",
   "password": "admin"
 }
+
 ### Create user by admin
 POST http://localhost:4111/api/v1/admin/users
 Content-Type:  application/json
@@ -18,6 +19,7 @@ Accept: */*
   "password": "verysTRongPassword33$",
   "role": "USER"
 }
+
 ### Login with user parametrs Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 POST http://localhost:4111/api/v1/auth/login
 Content-Type: application/json
@@ -26,13 +28,13 @@ Content-Type: application/json
   "username": "adya1997",
   "password": "verysTRongPassword33$"
 }
+
 ### Create new account
 POST http://localhost:4111/api/v1/accounts
 Content-Type: application/json
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 
 {
-
 }
 
 ### №1 Positive case: Deposit money with a valid user token and correct amount
@@ -45,7 +47,7 @@ Content-Type: application/json
   "balance": 100
 }
 
-### №2 Negative case: Deposit money with an invalid user token and correct amount
+### №2 Negative case: Deposit money with invalid user token and valid amount
 POST http://localhost:4111/api/v1/accounts/deposit
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkM
 Content-Type: application/json
@@ -55,7 +57,7 @@ Content-Type: application/json
   "balance": 100
 }
 
-### №3 Negative case: Deposit money without a user token and correct amount
+### №3 Negative case: Deposit money without user token and valid amount
 POST http://localhost:4111/api/v1/accounts/deposit
 Authorization:
 Content-Type: application/json
@@ -66,7 +68,7 @@ Content-Type: application/json
 }
 
 
-### №4 Negative case: Deposit money with a valid user token and invalid amount
+### №4 Negative case: Deposit money with valid user token and negative amount
 POST http://localhost:4111/api/v1/accounts/deposit
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 Content-Type: application/json
@@ -76,7 +78,7 @@ Content-Type: application/json
   "balance": -100
 }
 
-### №5 Negative case: Deposit money with a valid user token and without amount
+### №5 Negative case: Deposit money with valid user token and missing amount
 POST http://localhost:4111/api/v1/accounts/deposit
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 Content-Type: application/json
@@ -85,7 +87,7 @@ Content-Type: application/json
   "id": 1
 }
 
-### №6 Negative case: Deposit money with a valid user token and zero amount
+### №6 Negative case: Deposit money with valid user token and zero amount
 POST http://localhost:4111/api/v1/accounts/deposit
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 Content-Type: application/json
@@ -93,6 +95,36 @@ Content-Type: application/json
 {
   "id": 1,
   "balance": 0
+}
+
+### №7 Negative case: Deposit money with valid user token and amount exceeding maximum limit
+POST http://localhost:4111/api/v1/accounts/deposit
+Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
+Content-Type: application/json
+
+{
+  "id": 1,
+  "balance": 5000.01
+}
+
+### №8 Negative case: Deposit money with valid user token and maximum allowed amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
+Content-Type: application/json
+
+{
+  "id": 1,
+  "balance": 4999.99
+}
+
+### №9 Negative case: Deposit money with valid user token and minimal positive amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
+Content-Type: application/json
+
+{
+  "id": 1,
+  "balance": 0.01
 }
 
 ### Transfer money
@@ -208,16 +240,39 @@ Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
   "amount": 50
 }
 
-### №10 Negative case: Transfer money with zero receiver account ID
+### №10 Negative case: Transfer money with amount exceeding available balance
 POST http://localhost:4111/api/v1/accounts/transfer
 Content-Type: application/json
 Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
 
 {
   "senderAccountId": 2,
-  "receiverAccountId": 0,
-  "amount": 50
+  "receiverAccountId": 1,
+  "amount": 10000.01
 }
+
+### №11 Negative case: Transfer money with maximum valid amount
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
+
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 1,
+  "amount": 9999.99
+}
+
+### №12 Negative case: Transfer money with minimal positive amount
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk
+
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 1,
+  "amount": 0.01
+}
+
 
 ### №1 Positive case: Update username with USER role
 POST http://localhost:4111/api/v1/customer/profile
@@ -299,6 +354,8 @@ Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMz
 {
   "name": "adya 1997"
 }
+
+
 
 
 

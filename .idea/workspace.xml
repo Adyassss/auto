@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Senior tests">
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/TransactionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_28_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_29_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserProfileModelResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserProfileRequestModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="super-tests" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Adyassss&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Adyassss/auto.git&quot;,
+    &quot;accountId&quot;: &quot;fde6ad36-4354-41c4-a6ff-a12c6c5f9e74&quot;
+  }
+}</component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="37uuV4FpmOjOlGCwN0wYe6BUHGx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.iteration_1 | #1.executor": "Run",
+    "HTTP Request.iteration_1 | #4.executor": "Run",
+    "HTTP Request.iteration_1 | Create user by admin.executor": "Run",
+    "HTTP Request.iteration_1 | Deposit money.executor": "Run",
+    "HTTP Request.iteration_1 | Get Auth token.executor": "Run",
+    "HTTP Request.iteration_1 | Login with user parametrs Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk.executor": "Run",
+    "HTTP Request.iteration_1 | Login with user parametrs.executor": "Run",
+    "HTTP Request.iteration_1 | Negative case: Deposit money with a not valid user token and correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | Negative case: Deposit money without user token and correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | Transfer money with role USER.executor": "Run",
+    "HTTP Request.iteration_1 | Transfer money.executor": "Run",
+    "HTTP Request.iteration_1 | №1 Negative case: Update username with role USER and not correct token.executor": "Run",
+    "HTTP Request.iteration_1 | №1 Positive case: Deposit money with a valid user token and correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | №1 Positive case: Update username with role USER.executor": "Run",
+    "HTTP Request.iteration_1 | №2 Negative case: Transfer money with not correct token.executor": "Run",
+    "HTTP Request.iteration_1 | №2 Negative case: Transfer money without.executor": "Run",
+    "HTTP Request.iteration_1 | №2 Negative case: Update username with role USER and without token.executor": "Run",
+    "HTTP Request.iteration_1 | №3 Negative case: Deposit money without user token and correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and not correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
+    "HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid receiverAccountId.executor": "Run",
+    "HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid.executor": "Run",
+    "HTTP Request.iteration_1 | №4 Negative case: Update username with role USER null.executor": "Run",
+    "HTTP Request.iteration_1 | №5 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
+    "HTTP Request.iteration_1 | №6 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
+    "HTTP Request.iteration_1 | №6 Negative case: Transfer money with not correct amount.executor": "Run",
+    "HTTP Request.iteration_1 | №7 Negative case: Transfer money with amount not have user.executor": "Run",
+    "HTTP Request.iteration_1 | №7 Negative case: Transfer money with zero amount.executor": "Run",
+    "HTTP Request.iteration_1 | №7 Negative case: Update username with role USER where username have special simbol.executor": "Run",
+    "HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero amount.executor": "Run",
+    "HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero sender.executor": "Run",
+    "HTTP Request.iteration_1 | №8 Negative case: Update username with role USER where username have spaces.executor": "Run",
+    "HTTP Request.iteration_1 | №9 Negative case: Transfer money with zero receiverAccountId.executor": "Run",
+    "JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest.executor": "Debug",
+    "JUnit.UserCanChangeNameUI.UserChangeNameWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeNameUI.executor": "Run",
+    "JUnit.UserCanChangeNameUI.userChangeNameWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.adminCreateUser.executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.userCanChangeUsername (1).executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.userCanChangeUsername.executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData (1).executor": "Run",
+    "JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData.executor": "Run",
+    "JUnit.UserCanDeposit.authUser.executor": "Run",
+    "JUnit.UserCanDeposit.body.executor": "Run",
+    "JUnit.UserCanDeposit.userCanDeposit (1).executor": "Run",
+    "JUnit.UserCanDeposit.userCanDeposit.executor": "Run",
+    "JUnit.UserCanDeposit.userCantDepositWithInvalidData.executor": "Run",
+    "JUnit.UserCanDepositTest.authUser.executor": "Run",
+    "JUnit.UserCanDepositTest.executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit (1).executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit (2).executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit (3).executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit (4).executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit (5).executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit.executor": "Run",
+    "JUnit.UserCanDepositTest.userCantDepositWithInvalidData (1).executor": "Run",
+    "JUnit.UserCanDepositTest.userCantDepositWithInvalidData.executor": "Run",
+    "JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanDepositUI.UserDepositWithNotCorrectDataTest.executor": "Run",
+    "JUnit.UserCanDepositUI.executor": "Run",
+    "JUnit.UserCanDepositUI.userDepositWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransfer.userCanTransferMoney.executor": "Run",
+    "JUnit.UserCanTransferTest.executor": "Run",
+    "JUnit.UserCanTransferTest.userCanTransferMoney (1).executor": "Run",
+    "JUnit.UserCanTransferTest.userCanTransferMoney (2).executor": "Run",
+    "JUnit.UserCanTransferTest.userCanTransferMoney (3).executor": "Run",
+    "JUnit.UserCanTransferTest.userCanTransferMoney.executor": "Run",
+    "JUnit.UserCanTransferTest.userCantTransferMoney (1).executor": "Run",
+    "JUnit.UserCanTransferTest.userCantTransferMoney.executor": "Run",
+    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (1).executor": "Run",
+    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (2).executor": "Run",
+    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData.executor": "Run",
+    "JUnit.UserCanTransferUI.UserDepositWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransferUI.UserTransferWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransferUI.UserTransferWithNotCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransferUI.executor": "Run",
+    "JUnit.UserCanTransferUI.userTransferWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "#5 on improved-ui-tests",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/adya/IdeaProjects/nbank-tests",
+    "onboarding.tips.debug.path": "/Users/adya/IdeaProjects/nbank-tests/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.UserCanTransferUI.userTransferWithCorrectDataTest">
+    <configuration name="UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUI" />
+      <option name="METHOD_NAME" value="userChangeNameWithNotCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanDepositUI.userDepositWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
+      <option name="METHOD_NAME" value="userDepositWithCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanDepositUI.userDepositWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
+      <option name="METHOD_NAME" value="userDepositWithNotCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanTransferUI.userTransferWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
+      <option name="METHOD_NAME" value="userTransferWithCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanTransferUI.userTransferWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
+      <option name="METHOD_NAME" value="userTransferWithNotCorrectDataTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="" />
+      <created>1767765301648</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1767765301648</updated>
+      <workItem from="1767765302934" duration="51857000" />
+      <workItem from="1768391854106" duration="33000" />
+    </task>
+    <task id="LOCAL-00001" summary="Api test cases">
+      <option name="closed" value="true" />
+      <created>1767841006337</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1767841006337</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Api test cases">
+      <option name="closed" value="true" />
+      <created>1767841136261</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1767841136261</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Api test cases">
+      <option name="closed" value="true" />
+      <created>1767845457576</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1767845457576</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Api test cases">
+      <option name="closed" value="true" />
+      <created>1767845867973</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1767845867973</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add auto tests">
+      <option name="closed" value="true" />
+      <created>1767954506610</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1767954506611</updated>
+    </task>
+    <task id="LOCAL-00006" summary="I’ve fixed the mistakes.">
+      <option name="closed" value="true" />
+      <created>1768311028309</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1768311028309</updated>
+    </task>
+    <task id="LOCAL-00007" summary="I’ve fixed the mistakes.">
+      <option name="closed" value="true" />
+      <created>1768311055254</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1768311055254</updated>
+    </task>
+    <task id="LOCAL-00008" summary="I’ve fixed the mistakes.">
+      <option name="closed" value="true" />
+      <created>1768379315120</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1768379315120</updated>
+    </task>
+    <task id="LOCAL-00009" summary="I’ve fixed the mistakes.">
+      <option name="closed" value="true" />
+      <created>1768379407330</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1768379407330</updated>
+    </task>
+    <task id="LOCAL-00010" summary="I’ve fixed the mistakes.">
+      <option name="closed" value="true" />
+      <created>1768398660659</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1768398660659</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Middle tests">
+      <option name="closed" value="true" />
+      <created>1768783941336</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1768783941336</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Middle tests">
+      <option name="closed" value="true" />
+      <created>1768784251334</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1768784251334</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Senior tests">
+      <option name="closed" value="true" />
+      <created>1769054149719</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1769054149719</updated>
+    </task>
+    <task id="LOCAL-00014" summary="UI tests">
+      <option name="closed" value="true" />
+      <created>1769223880159</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1769223880159</updated>
+    </task>
+    <task id="LOCAL-00015" summary="UI tests">
+      <option name="closed" value="true" />
+      <created>1769431684996</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1769431684996</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Senior tests">
+      <option name="closed" value="true" />
+      <created>1769504873016</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1769504873016</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Senior tests">
+      <option name="closed" value="true" />
+      <created>1769505031245</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1769505031245</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Api test cases" />
+    <MESSAGE value="Add auto tests" />
+    <MESSAGE value="I’ve fixed the mistakes." />
+    <MESSAGE value="Middle tests" />
+    <MESSAGE value="UI tests" />
+    <MESSAGE value="Senior tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Senior tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
