@@ -17,8 +17,8 @@ public class RandomData {
                 RandomStringUtils.randomNumeric(3) + "#$";
     }
     public static String getName (){
-        return RandomStringUtils.randomAlphabetic(5) + " " +
-                RandomStringUtils.randomAlphabetic(4);
+        return RandomStringUtils.randomAlphabetic(5).toLowerCase() + " " +
+                RandomStringUtils.randomAlphabetic(7).toLowerCase();
     }
 
     public static String negativeName (){

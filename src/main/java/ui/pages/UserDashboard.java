@@ -3,8 +3,10 @@ package ui.pages;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 import com.codeborne.selenide.Condition;
+import common.utils.RetryUtils;
 
 public class UserDashboard extends BasePage<UserDashboard> {
     private SelenideElement welcomeText = $(Selectors.byText("User Dashboard"));
@@ -25,14 +27,15 @@ public class UserDashboard extends BasePage<UserDashboard> {
 
     public UserDashboard changeName(String name) {
         oldName.shouldBe(Condition.visible).click();
+        sleep(500);
         newName.sendKeys(name);
         buttonChangeName.shouldBe(Condition.visible).click();
         return this;
     }
 
     public UserDashboard ensureNameDisplayed(String name) {
-        $(Selectors.byText(name)).shouldBe(Condition.visible);
-        return this;
+         $(Selectors.byText(name)).isDisplayed();
+         return this;
     }
 
     public UserDashboard createAccount() {

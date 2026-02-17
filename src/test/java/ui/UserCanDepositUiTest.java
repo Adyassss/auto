@@ -17,7 +17,7 @@ import ui.pages.UserDashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanDepositUI extends BaseUITest {
+public class UserCanDepositUiTest extends BaseUITest {
 
     @Test
     @AdminSession

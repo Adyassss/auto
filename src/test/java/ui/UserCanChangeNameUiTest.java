@@ -16,7 +16,7 @@ import ui.pages.UserDashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanChangeNameUI extends BaseUITest {
+public class UserCanChangeNameUiTest extends BaseUITest {
 
     @Test
     @AdminSession

@@ -18,7 +18,7 @@ import ui.pages.UserDashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanTransferUI extends BaseUITest {
+public class UserCanTransferUiTest extends BaseUITest {
 
     @Test
     @AdminSession
@@ -48,7 +48,7 @@ public class UserCanTransferUI extends BaseUITest {
         .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage())
         .getPage(TransferPage.class)
         .open()
-        .transferMoney()
+        .transferMoney(name)
         .checkAllertMassageAndAccept(BankAllerts.TRANSFER_MONEY_SUCCESSFULLY.getMessage());
         
         
@@ -99,7 +99,7 @@ public class UserCanTransferUI extends BaseUITest {
                 .checkAllertMassageAndAccept(BankAllerts.DEPOSIT_MONEY_SUCCESSFULLY.getMessage())
                 .getPage(TransferPage.class)
                 .open()
-                .transferMoneyWithNotCorrectAmount()
+                .transferMoneyWithNotCorrectAmount(name)
                 .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_TRANSFER_AMOUNT.getMessage());
 
 

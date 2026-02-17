@@ -1,0 +1,10 @@
+UserCanChangeNameUiTest.  Expecting actual:
+                            "❌ Please enter a valid name."                  Добавил засыпание потока на 0.5 сек
+                          to contain:
+                            "Name must contain two words with letters only"
+UserCanTransferUiTest      Expecting actual:
+                             "❌ The recipient name does not match the registered name." Исправил тестовые данные
+                           to contain:
+                             "✅ Successfully transferred"
+
+
