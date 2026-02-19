@@ -1,8 +1,5 @@
 package api;
 
-import api.models.AdminCanCreateUserRequest;
-import api.requests.steps.BaseSteps;
-import common.storage.SessionStorage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,7 +18,7 @@ public class UserCanChangeUsernameTest {
         String name = RandomData.getName();
 
         String userToken = AdminSteps.createToken();
-        
+
         ChangeNameSteps.changeName(userToken, name);
 
         String nameAfter = UserProfileSteps.getUserProfileName(userToken);

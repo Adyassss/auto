@@ -7,14 +7,13 @@ import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 import common.storage.SessionStorage;
-import ui.pages.BasePage;
 
-public class AdminSteps extends BaseSteps{
+public class AdminSteps extends BaseSteps {
     public AdminSteps(String username, String password) {
         super(username, password);
     }
 
-    public static String createToken (){
+    public static String createToken() {
         AdminCanCreateUserRequest randomUser = RandomModelGenerator.generate(AdminCanCreateUserRequest.class);
         return new CrudRequesters(RequestSpec.adminRequest(),
                 Endpoint.ADMIN_USER,
@@ -23,7 +22,8 @@ public class AdminSteps extends BaseSteps{
                 .extract()
                 .header("Authorization");
     }
-    public static AdminCanCreateUserRequest createUser (){
+
+    public static AdminCanCreateUserRequest createUser() {
         AdminCanCreateUserRequest randomUser = RandomModelGenerator.generate(AdminCanCreateUserRequest.class);
         new CrudRequesters(RequestSpec.adminRequest(),
                 Endpoint.ADMIN_USER,
