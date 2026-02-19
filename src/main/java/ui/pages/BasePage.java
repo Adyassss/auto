@@ -1,5 +1,6 @@
 package ui.pages;
 
+import api.models.LoginUserRequest;
 import api.specs.RequestSpec;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
@@ -47,6 +48,11 @@ public abstract class BasePage<T extends BasePage<T>> {
         Selenide.open("/");
         String userAuthHeader = RequestSpec.getUserAuthHeader(username, password);
         executeJavaScript("localStorage.setItem('authToken', arguments[0]);", userAuthHeader);
+    }
+    public static void authAsUser(LoginUserRequest user) {
+        Selenide.open("/");
+        String token = RequestSpec.getUserAuthHeader(user);
+        executeJavaScript("localStorage.setItem('authToken', arguments[0]);", token);
     }
     protected <T extends BaseElement> List<T> generatePageElements(ElementsCollection elementsCollection, Function<SelenideElement, T> constructor) {
         return elementsCollection.stream().map(constructor).toList();

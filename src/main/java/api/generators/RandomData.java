@@ -17,12 +17,13 @@ public class RandomData {
                 RandomStringUtils.randomNumeric(3) + "#$";
     }
     public static String getName (){
-        return RandomStringUtils.randomAlphabetic(5).toLowerCase() + " " +
-                RandomStringUtils.randomAlphabetic(7).toLowerCase();
+        return RandomStringUtils.randomAlphabetic(5)+ " " +
+                RandomStringUtils.randomAlphabetic(5);
     }
 
     public static String negativeName (){
-        return RandomStringUtils.randomAlphabetic(5);
+        return RandomStringUtils.randomAlphabetic(5) + " "
+                + RandomStringUtils.randomNumeric(2);
     }
 
     public static Stream<Float> NegativeAmount() {

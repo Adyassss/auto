@@ -1,12 +1,12 @@
 package ui.pages;
 
 import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
 
 import com.codeborne.selenide.Condition;
-import common.utils.RetryUtils;
 
 public class UserDashboard extends BasePage<UserDashboard> {
     private SelenideElement welcomeText = $(Selectors.byText("User Dashboard"));
@@ -27,15 +27,15 @@ public class UserDashboard extends BasePage<UserDashboard> {
 
     public UserDashboard changeName(String name) {
         oldName.shouldBe(Condition.visible).click();
-        sleep(500);
-        newName.sendKeys(name);
+        sleep(1000);
+        newName.shouldBe(Condition.visible).setValue(name);
         buttonChangeName.shouldBe(Condition.visible).click();
         return this;
     }
 
     public UserDashboard ensureNameDisplayed(String name) {
-         $(Selectors.byText(name)).isDisplayed();
-         return this;
+        $(Selectors.byText(name)).shouldBe(Condition.visible);
+        return this;
     }
 
     public UserDashboard createAccount() {
@@ -43,9 +43,9 @@ public class UserDashboard extends BasePage<UserDashboard> {
         return this;
     }
 
-    public UserDashboard transferMoney() {
+    public TransferPage transferMoney() {
         transferButton.shouldBe(Condition.visible).click();
-        return this;
+        return Selenide.page(TransferPage.class);
     }
 
 }

@@ -4,17 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Senior Test UI">
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/utils/RetryUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Markdown" afterDir="false" />
+    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Стабилизируем тесты">
+      <change afterPath="$PROJECT_DIR$/.mvn/extensions.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/extensions/TimingExtension.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/junit-platform.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/api/generators/RandomData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/generators/RandomData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/DepositPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/DepositPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/extensions/AdminSessionExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/extensions/AdminSessionExtension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/extensions/UserSessionExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/extensions/UserSessionExtension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/storage/SessionStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/storage/SessionStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/UserDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/BaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/UserCanChangeUsernameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/UserCanChangeUsernameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BankAllerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BankAllerts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUiTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +121,7 @@
     "JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanChangeNameUiTest.executor": "Run",
     "JUnit.UserCanChangeNameUiTest.userChangeNameWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanChangeNameUiTest.userChangeNameWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.adminCreateUser.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.executor": "Run",
     "JUnit.UserCanChangeUsernameTest.userCanChangeUsername (1).executor": "Run",
@@ -139,6 +149,7 @@
     "JUnit.UserCanDepositUI.userDepositWithCorrectDataTest.executor": "Run",
     "JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanDepositUiTest.userDepositWithCorrectDataTest.executor": "Run",
+    "JUnit.UserCanDepositUiTest.userDepositWithNotCorrectDataTest.executor": "Run",
     "JUnit.UserCanTransfer.userCanTransferMoney.executor": "Run",
     "JUnit.UserCanTransferTest.executor": "Run",
     "JUnit.UserCanTransferTest.userCanTransferMoney (1).executor": "Run",
@@ -184,22 +195,7 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserCanTransferUiTest.userTransferWithNotCorrectDataTest">
-    <configuration name="UserCanChangeNameUiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUiTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.UserCanDepositTest">
     <configuration name="UserCanChangeNameUiTest.userChangeNameWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
@@ -216,7 +212,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanDepositUiTest.userDepositWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanChangeNameUiTest.userChangeNameWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -225,52 +221,66 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUiTest" />
-      <option name="METHOD_NAME" value="userDepositWithCorrectDataTest" />
+      <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUiTest" />
+      <option name="METHOD_NAME" value="userChangeNameWithNotCorrectDataTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferUiTest.userTransferWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUiTest" />
-      <option name="METHOD_NAME" value="userTransferWithCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanChangeUsernameTest" />
+      <option name="METHOD_NAME" value="userCantChangeUsernameWithInvalidData(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferUiTest.userTransferWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanDepositTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUiTest" />
-      <option name="METHOD_NAME" value="userTransferWithNotCorrectDataTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanDepositTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserCanTransferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanTransferTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserCanTransferUiTest.userTransferWithNotCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanTransferUiTest.userTransferWithCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanDepositTest" />
+        <item itemvalue="JUnit.UserCanTransferTest" />
         <item itemvalue="JUnit.UserCanChangeNameUiTest.userChangeNameWithCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanDepositUiTest.userDepositWithCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanChangeNameUiTest" />
+        <item itemvalue="JUnit.UserCanChangeNameUiTest.userChangeNameWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData" />
       </list>
     </recent_temporary>
   </component>
@@ -443,7 +453,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770783733509</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Стабилизируем тесты">
+      <option name="closed" value="true" />
+      <created>1771296099909</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1771296099909</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,7 +487,8 @@
     <MESSAGE value="Senior tests" />
     <MESSAGE value="Fixed middle tests" />
     <MESSAGE value="Senior Test UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Senior Test UI" />
+    <MESSAGE value="Стабилизируем тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="Стабилизируем тесты" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -530,23 +549,38 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/UserDashboard.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="29" />
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/UserDashboard.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
           <line>42</line>
-          <option name="timeStamp" value="30" />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/UserDashboard.java</url>
-          <line>40</line>
-          <properties class="ui.pages.UserDashboard" method="createAccount">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>31</line>
+          <properties class="ui.pages.BasePage" method="checkAllertMassageAndAccept">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

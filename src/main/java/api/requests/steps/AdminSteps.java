@@ -6,6 +6,8 @@ import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
+import common.storage.SessionStorage;
+import ui.pages.BasePage;
 
 public class AdminSteps extends BaseSteps{
     public AdminSteps(String username, String password) {
@@ -27,6 +29,7 @@ public class AdminSteps extends BaseSteps{
                 Endpoint.ADMIN_USER,
                 ResponseSpec.created())
                 .post(randomUser);
+        SessionStorage.addUsers(randomUser);
         return randomUser;
     }
 }

@@ -5,31 +5,24 @@ import api.requests.steps.BaseSteps;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class SessionStorage {
-    private static final SessionStorage INSTANCE = new SessionStorage();
-    private final LinkedHashMap<BaseModel, BaseSteps> userStepsMap = new LinkedHashMap<>();
+    private static final ThreadLocal<SessionStorage> INSTANCE = ThreadLocal.withInitial(SessionStorage::new);
+    private final LinkedList<BaseModel> usersStorage = new LinkedList<>();
     private SessionStorage() {}
-    public static void addUsers(BaseModel model, BaseSteps step) {
-       INSTANCE.userStepsMap.put(model,step);
+    public static void addUsers(BaseModel model) {
+       INSTANCE.get().usersStorage.add(model);
     }
     public static BaseModel getUser(int number) {
-        return new ArrayList<>(INSTANCE.userStepsMap.keySet()).get(number-1);
+        return INSTANCE.get().usersStorage.get(number-1);
     }
 
     public static BaseModel getUser() {
         return getUser(1);
     }
 
-    public static BaseSteps getSteps(int number) {
-        return new ArrayList<>(INSTANCE.userStepsMap.values()).get(number-1);
-    }
-
-    public static BaseSteps getSteps() {
-        return getSteps(1);
-    }
-
     public static void clear() {
-        INSTANCE.userStepsMap.clear();
+        INSTANCE.get().usersStorage.clear();
     }
 }

@@ -51,11 +51,6 @@ public class RequestSpec {
                 .path("token");
     }
 
-    public static RequestSpecification authorizedRequest() {
-        return defaultRequest()
-                .addHeader("Authorization", "Bearer " + authToken)
-                .build();
-    }
 
     public static String getUserAuthHeader(String username, String password) {
         String userAuthHeader;
@@ -68,6 +63,17 @@ public class RequestSpec {
                     .header("Authorization");
             return userAuthHeader;
         }
+    public static String getUserAuthHeader(LoginUserRequest user) {
+        String userAuthHeader;
+        userAuthHeader = new CrudRequesters(
+                RequestSpec.unauthSpec(),
+                Endpoint.LOGIN,
+                ResponseSpec.ok())
+                .post(user)
+                .extract()
+                .header("Authorization");
+        return userAuthHeader;
+    }
     }
 
 
