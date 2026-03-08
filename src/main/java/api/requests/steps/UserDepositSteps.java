@@ -1,31 +1,39 @@
 package api.requests.steps;
 
-import io.restassured.response.ValidatableResponse;
 import api.models.UserDepositModelRequest;
 import api.requests.skelethon.Endpoint;
-import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
-import api.specs.ResponseSpec;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+
+import static io.restassured.RestAssured.given;
 
 public class UserDepositSteps {
     public static ValidatableResponse depositMoney(String userToken, int senderId, float amount){
-        return new CrudRequesters(RequestSpec.userRequest(userToken),
-        Endpoint.DEPOSIT_USER,
-        ResponseSpec.ok())
-        .post(UserDepositModelRequest.builder()
-                .id(senderId)
-                .balance(amount)
-                .build());
+        Response response = given()
+                .spec(RequestSpec.userRequest(userToken))
+                .body(UserDepositModelRequest.builder()
+                        .id(senderId)
+                        .balance(amount)
+                        .build())
+                .post(Endpoint.DEPOSIT_USER.getUrl());
+
+        if (response.statusCode() != 200) {
+            throw new AssertionError("Unexpected status for deposit: " + response.statusCode());
+        }
+
+        return response.then();
     }
 
     public static ValidatableResponse depositMoneyWithInvalidData(String userToken, int senderId, float amount){
-        return new CrudRequesters(RequestSpec.userRequest(userToken),
-        Endpoint.DEPOSIT_USER,
-        ResponseSpec.badRequest())
-        .post(UserDepositModelRequest.builder()
-                .id(senderId)
-                .balance(amount)
-                .build());
+        return given()
+                .spec(RequestSpec.userRequest(userToken))
+                .body(UserDepositModelRequest.builder()
+                        .id(senderId)
+                        .balance(amount)
+                        .build())
+                .post(Endpoint.DEPOSIT_USER.getUrl())
+                .then()
+                .statusCode(400);
     }
-
 }

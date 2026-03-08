@@ -4,21 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Senior tests">
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/TransactionModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_28_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_01_2026,_12_29_[Changes]/shelved.patch" beforeDir="false" />
+    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока">
+      <change afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infra/docker_compose/init-scripts/01-init-db.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/DataBaseSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/helpers/StepLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/comparison/DaoAndModelAssertions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/comparison/DaoComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/comparison/DaoComparisonConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Condition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/DBRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/dao-comparison.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserProfileModelResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserProfileRequestModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanTransferUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/AccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/LoginUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/LoginUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/LoginUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/LoginUserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserProfileResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserProfileResponseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserDepositSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserDepositSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserProfileSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserProfileSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/UserCanChangeUsernameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/UserCanChangeUsernameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/UserCanDepositTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/UserCanDepositTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/UserCanTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/UserCanTransferTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanChangeNameUiTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +45,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -72,194 +88,226 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.iteration_1 | #1.executor": "Run",
-    "HTTP Request.iteration_1 | #4.executor": "Run",
-    "HTTP Request.iteration_1 | Create user by admin.executor": "Run",
-    "HTTP Request.iteration_1 | Deposit money.executor": "Run",
-    "HTTP Request.iteration_1 | Get Auth token.executor": "Run",
-    "HTTP Request.iteration_1 | Login with user parametrs Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk.executor": "Run",
-    "HTTP Request.iteration_1 | Login with user parametrs.executor": "Run",
-    "HTTP Request.iteration_1 | Negative case: Deposit money with a not valid user token and correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | Negative case: Deposit money without user token and correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | Transfer money with role USER.executor": "Run",
-    "HTTP Request.iteration_1 | Transfer money.executor": "Run",
-    "HTTP Request.iteration_1 | №1 Negative case: Update username with role USER and not correct token.executor": "Run",
-    "HTTP Request.iteration_1 | №1 Positive case: Deposit money with a valid user token and correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | №1 Positive case: Update username with role USER.executor": "Run",
-    "HTTP Request.iteration_1 | №2 Negative case: Transfer money with not correct token.executor": "Run",
-    "HTTP Request.iteration_1 | №2 Negative case: Transfer money without.executor": "Run",
-    "HTTP Request.iteration_1 | №2 Negative case: Update username with role USER and without token.executor": "Run",
-    "HTTP Request.iteration_1 | №3 Negative case: Deposit money without user token and correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and not correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
-    "HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid receiverAccountId.executor": "Run",
-    "HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid.executor": "Run",
-    "HTTP Request.iteration_1 | №4 Negative case: Update username with role USER null.executor": "Run",
-    "HTTP Request.iteration_1 | №5 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
-    "HTTP Request.iteration_1 | №6 Negative case: Deposit money with a valid user token and without amount.executor": "Run",
-    "HTTP Request.iteration_1 | №6 Negative case: Transfer money with not correct amount.executor": "Run",
-    "HTTP Request.iteration_1 | №7 Negative case: Transfer money with amount not have user.executor": "Run",
-    "HTTP Request.iteration_1 | №7 Negative case: Transfer money with zero amount.executor": "Run",
-    "HTTP Request.iteration_1 | №7 Negative case: Update username with role USER where username have special simbol.executor": "Run",
-    "HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero amount.executor": "Run",
-    "HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero sender.executor": "Run",
-    "HTTP Request.iteration_1 | №8 Negative case: Update username with role USER where username have spaces.executor": "Run",
-    "HTTP Request.iteration_1 | №9 Negative case: Transfer money with zero receiverAccountId.executor": "Run",
-    "JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest.executor": "Debug",
-    "JUnit.UserCanChangeNameUI.UserChangeNameWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest.executor": "Run",
-    "JUnit.UserCanChangeNameUI.executor": "Run",
-    "JUnit.UserCanChangeNameUI.userChangeNameWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest.executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.adminCreateUser.executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.userCanChangeUsername (1).executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.userCanChangeUsername.executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData (1).executor": "Run",
-    "JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData.executor": "Run",
-    "JUnit.UserCanDeposit.authUser.executor": "Run",
-    "JUnit.UserCanDeposit.body.executor": "Run",
-    "JUnit.UserCanDeposit.userCanDeposit (1).executor": "Run",
-    "JUnit.UserCanDeposit.userCanDeposit.executor": "Run",
-    "JUnit.UserCanDeposit.userCantDepositWithInvalidData.executor": "Run",
-    "JUnit.UserCanDepositTest.authUser.executor": "Run",
-    "JUnit.UserCanDepositTest.executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit (1).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit (2).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit (3).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit (4).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit (5).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit.executor": "Run",
-    "JUnit.UserCanDepositTest.userCantDepositWithInvalidData (1).executor": "Run",
-    "JUnit.UserCanDepositTest.userCantDepositWithInvalidData.executor": "Run",
-    "JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanDepositUI.UserDepositWithNotCorrectDataTest.executor": "Run",
-    "JUnit.UserCanDepositUI.executor": "Run",
-    "JUnit.UserCanDepositUI.userDepositWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest.executor": "Run",
-    "JUnit.UserCanTransfer.userCanTransferMoney.executor": "Run",
-    "JUnit.UserCanTransferTest.executor": "Run",
-    "JUnit.UserCanTransferTest.userCanTransferMoney (1).executor": "Run",
-    "JUnit.UserCanTransferTest.userCanTransferMoney (2).executor": "Run",
-    "JUnit.UserCanTransferTest.userCanTransferMoney (3).executor": "Run",
-    "JUnit.UserCanTransferTest.userCanTransferMoney.executor": "Run",
-    "JUnit.UserCanTransferTest.userCantTransferMoney (1).executor": "Run",
-    "JUnit.UserCanTransferTest.userCantTransferMoney.executor": "Run",
-    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (1).executor": "Run",
-    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (2).executor": "Run",
-    "JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData.executor": "Run",
-    "JUnit.UserCanTransferUI.UserDepositWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanTransferUI.UserTransferWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanTransferUI.UserTransferWithNotCorrectDataTest.executor": "Run",
-    "JUnit.UserCanTransferUI.executor": "Run",
-    "JUnit.UserCanTransferUI.userTransferWithCorrectDataTest.executor": "Run",
-    "JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "#5 on improved-ui-tests",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/adya/IdeaProjects/nbank-tests",
-    "onboarding.tips.debug.path": "/Users/adya/IdeaProjects/nbank-tests/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker_compose.postgres: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Create user by admin.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Deposit money.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Get Auth token.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Login with user parametrs Authorization: Basic YWR5YTE5OTc6dmVyeXNUUm9uZ1Bhc3N3b3JkMzMk.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Login with user parametrs.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Negative case: Deposit money with a not valid user token and correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Negative case: Deposit money without user token and correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Transfer money with role USER.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | Transfer money.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №1 Negative case: Update username with role USER and not correct token.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №1 Positive case: Deposit money with a valid user token and correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №1 Positive case: Update username with role USER.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №2 Negative case: Transfer money with not correct token.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №2 Negative case: Transfer money without.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №2 Negative case: Update username with role USER and without token.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №3 Negative case: Deposit money without user token and correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and not correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №4 Negative case: Deposit money with a valid user token and without amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid receiverAccountId.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №4 Negative case: Transfer money with not correctid.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №4 Negative case: Update username with role USER null.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №5 Negative case: Deposit money with a valid user token and without amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №6 Negative case: Deposit money with a valid user token and without amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №6 Negative case: Transfer money with not correct amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №7 Negative case: Transfer money with amount not have user.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №7 Negative case: Transfer money with zero amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №7 Negative case: Update username with role USER where username have special simbol.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero amount.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №8 Negative case: Transfer money with zero sender.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №8 Negative case: Update username with role USER where username have spaces.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.iteration_1 | №9 Negative case: Transfer money with zero receiverAccountId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.adminCanLoginWithCorrectDataTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UserCanChangeNameUI.UserChangeNameWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUI.UserChangeNameWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUI.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUI.userChangeNameWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUiTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUiTest.userChangeNameWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeNameUiTest.userChangeNameWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.adminCreateUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.userCanChangeUsername (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.userCanChangeUsername.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.userCantChangeUsernameWithInvalidData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanChangeUsernameTest.usserCanChangeUsername.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDeposit.authUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDeposit.body.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDeposit.userCanDeposit (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDeposit.userCanDeposit.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDeposit.userCantDepositWithInvalidData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.authUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit (3).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit (4).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit (5).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCanDeposit.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCantDepositWithInvalidData (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositTest.userCantDepositWithInvalidData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUI.UserDepositWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUI.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUI.userDepositWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUiTest.userDepositWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanDepositUiTest.userDepositWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransfer.userCanTransferMoney.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCanTransferMoney (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCanTransferMoney (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCanTransferMoney (3).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCanTransferMoney.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCantTransferMoney (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCantTransferMoney.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferTest.userCantTransferMoneyWithInvalidData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.UserDepositWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.UserTransferWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.UserTransferWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.userTransferWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUiTest.userTransferWithCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserCanTransferUiTest.userTransferWithNotCorrectDataTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [-Dserver=http://localhost:4112...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [clean,test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.nbank-tests [validate].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;super-ui-tests&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/adya/IdeaProjects/nbank-tests&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/adya/IdeaProjects/nbank-tests/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.UserCanTransferUI.userTransferWithCorrectDataTest">
-    <configuration name="UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean test" />
+      <command value="mvn  -Dserver=http://localhost:4112 -Ddb.url=jdbc:postgresql://localhost:5433/nbank -Ddb.username=postgres -Ddb.password=postgres -Dtest=api.UserCanChangeUsernameTest#userCanChangeUsername test " />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.UserCanTransferTest.userCantTransferMoney">
+    <configuration name="UserCanChangeUsernameTest.userCanChangeUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanChangeNameUI" />
-      <option name="METHOD_NAME" value="userChangeNameWithNotCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanChangeUsernameTest" />
+      <option name="METHOD_NAME" value="userCanChangeUsername" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanDepositUI.userDepositWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanDepositTest.userCanDeposit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
-      <option name="METHOD_NAME" value="userDepositWithCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanDepositTest" />
+      <option name="METHOD_NAME" value="userCanDeposit" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanDepositUI.userDepositWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanDepositTest.userCantDepositWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanDepositUI" />
-      <option name="METHOD_NAME" value="userDepositWithNotCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanDepositTest" />
+      <option name="METHOD_NAME" value="userCantDepositWithInvalidData(float)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferUI.userTransferWithCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanTransferTest.userCanTransferMoney" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
-      <option name="METHOD_NAME" value="userTransferWithCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanTransferTest" />
+      <option name="METHOD_NAME" value="userCanTransferMoney" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCanTransferUI.userTransferWithNotCorrectDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserCanTransferTest.userCantTransferMoney" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui" />
-      <option name="MAIN_CLASS_NAME" value="ui.UserCanTransferUI" />
-      <option name="METHOD_NAME" value="userTransferWithNotCorrectDataTest" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserCanTransferTest" />
+      <option name="METHOD_NAME" value="userCantTransferMoney(float)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanTransferUI.userTransferWithNotCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithNotCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanDepositUI.userDepositWithCorrectDataTest" />
-        <item itemvalue="JUnit.UserCanChangeNameUI.userChangeNameWithNotCorrectDataTest" />
+        <item itemvalue="JUnit.UserCanTransferTest.userCantTransferMoney" />
+        <item itemvalue="JUnit.UserCanTransferTest.userCanTransferMoney" />
+        <item itemvalue="JUnit.UserCanDepositTest.userCantDepositWithInvalidData" />
+        <item itemvalue="JUnit.UserCanDepositTest.userCanDeposit" />
+        <item itemvalue="JUnit.UserCanChangeUsernameTest.userCanChangeUsername" />
       </list>
     </recent_temporary>
   </component>
@@ -416,11 +464,62 @@
       <option name="project" value="LOCAL" />
       <updated>1769505031245</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fixed middle tests">
+      <option name="closed" value="true" />
+      <created>1770783577266</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1770783577266</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed middle tests">
+      <option name="closed" value="true" />
+      <created>1770783733509</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1770783733509</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Стабилизируем тесты">
+      <option name="closed" value="true" />
+      <created>1771296099909</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1771296099909</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока">
+      <option name="closed" value="true" />
+      <created>1771491250817</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1771491250817</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока">
+      <option name="closed" value="true" />
+      <created>1771491348679</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1771491348680</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Api test cases" />
@@ -429,7 +528,11 @@
     <MESSAGE value="Middle tests" />
     <MESSAGE value="UI tests" />
     <MESSAGE value="Senior tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Senior tests" />
+    <MESSAGE value="Fixed middle tests" />
+    <MESSAGE value="Senior Test UI" />
+    <MESSAGE value="Стабилизируем тесты" />
+    <MESSAGE value="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -438,6 +541,90 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
           <line>7</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/TransferPage.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
+          <line>31</line>
+          <properties class="ui.pages.BasePage">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

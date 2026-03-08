@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class UserDepositModelRequest extends BaseModel {
-    private int id;
+    private long id;
     private float balance;
 }

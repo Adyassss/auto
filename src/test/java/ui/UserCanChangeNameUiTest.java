@@ -1,10 +1,10 @@
 package ui;
 
 
-import api.configs.Config;
 import api.generators.RandomData;
 import api.models.UserProfileResponseModel;
 
+import common.annotations.AdminSession;
 import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.ValidatedCrudRequester;
@@ -16,17 +16,16 @@ import ui.pages.UserDashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanChangeNameUI extends BaseUITest {
-
+public class UserCanChangeNameUiTest extends BaseUITest {
 
     @Test
+    @AdminSession
     public void userChangeNameWithCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.getName();
 
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-                .getPage(AdminPanel.class)
+        new AdminPanel().open()
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
                 .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage())
@@ -36,8 +35,9 @@ public class UserCanChangeNameUI extends BaseUITest {
                 .getPage(UserDashboard.class)
                 .ensureDashboardVisible()
                 .changeName(name)
-                .checkAllertMassageAndAccept(BankAllerts.NAME_UPDATED_SUCCESSFULLY.getMessage());
-        
+                .checkAllertMassageAndAccept(BankAllerts.NAME_UPDATED_SUCCESSFULLY.getMessage())
+                .ensureNameDisplayed(name);
+
 
         String token = getAuthToken();
         String nameProfile = new ValidatedCrudRequester<UserProfileResponseModel>(RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
@@ -48,12 +48,12 @@ public class UserCanChangeNameUI extends BaseUITest {
 
 
     @Test
+    @AdminSession
     public void userChangeNameWithNotCorrectDataTest() {
         String username = RandomData.getUsername();
         String password = RandomData.getPassword();
         String name = RandomData.negativeName();
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-                .getPage(AdminPanel.class)
+        new AdminPanel().open()
                 .ensureAdminPanelVisible()
                 .createUser(username, password)
                 .checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage())
@@ -67,10 +67,9 @@ public class UserCanChangeNameUI extends BaseUITest {
                 .checkAllertMassageAndAccept(BankAllerts.NOT_CORRECT_NAME.getMessage());
 
 
-        
         String token = getAuthToken();
         UserProfileResponseModel nameProfile = new ValidatedCrudRequester<UserProfileResponseModel>
-        (RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
+                (RequestSpec.userRequest(token), Endpoint.USER_PROFILE, ResponseSpec.ok())
                 .get();
         assertThat(nameProfile.getName()).isNull();
     }

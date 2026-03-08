@@ -1,15 +1,17 @@
 package api;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-
 import api.generators.RandomData;
+import api.models.UserProfileResponseModel;
 import api.models.comparison.ModelAssertions;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.ChangeNameSteps;
+import api.requests.steps.DataBaseSteps;
 import api.requests.steps.UserProfileSteps;
-
+import dao.UserDao;
+import dao.comparison.DaoAndModelAssertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class UserCanChangeUsernameTest {
 
@@ -18,12 +20,14 @@ public class UserCanChangeUsernameTest {
         String name = RandomData.getName();
 
         String userToken = AdminSteps.createToken();
-        
+
         ChangeNameSteps.changeName(userToken, name);
 
-        String nameAfter = UserProfileSteps.getUserProfileName(userToken);
+        UserProfileResponseModel profileAfter = UserProfileSteps.getUserProfile(userToken);
 
-        ModelAssertions.assertThatModels(name, nameAfter).match();
+        UserDao profileInDB = DataBaseSteps.getUserById(profileAfter.getId());
+
+        DaoAndModelAssertions.assertThat(profileAfter, profileInDB).match();
 
     }
 
@@ -32,12 +36,12 @@ public class UserCanChangeUsernameTest {
     public void userCantChangeUsernameWithInvalidData(String invalidName) {
         String userToken = AdminSteps.createToken();
 
-        String nameBefore = UserProfileSteps.getUserProfileName(userToken);
-
         ChangeNameSteps.changeNameWithInvalidData(userToken, invalidName);
 
-        String nameAfter = UserProfileSteps.getUserProfileName(userToken);
+        UserProfileResponseModel profileAfter = UserProfileSteps.getUserProfile(userToken);
 
-        ModelAssertions.assertThatModels(nameBefore, nameAfter).match();
+        UserDao profileInDB = DataBaseSteps.getUserById(profileAfter.getId());
+
+        DaoAndModelAssertions.assertThat(profileAfter, profileInDB).match();
     }
 }

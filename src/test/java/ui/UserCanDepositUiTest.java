@@ -2,8 +2,9 @@ package ui;
 
 import api.models.UserProfileModelResponse;
 
-import api.configs.Config;
 import api.generators.RandomData;
+import common.annotations.AdminSession;
+import common.annotations.Browsers;
 import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.CrudRequesters;
@@ -16,14 +17,15 @@ import ui.pages.UserDashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserCanDepositUI extends BaseUITest {
+public class UserCanDepositUiTest extends BaseUITest {
 
     @Test
+    @AdminSession
+    @Browsers({"chrome"})
     public void userDepositWithCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-        .getPage(AdminPanel.class)
+        new AdminPanel().open()
         .ensureAdminPanelVisible()
         .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
         .getPage(LoginPage.class)
@@ -49,11 +51,11 @@ public class UserCanDepositUI extends BaseUITest {
         assertThat(balanceProfile).isEqualTo(5000.0f);
     }
     @Test
+    @AdminSession
     public void userDepositWithNotCorrectDataTest() {
         String name = RandomData.getUsername();
         String password = RandomData.getPassword();
-        new LoginPage().open().login(Config.getProperty(Config.ADMIN_USERNAME_KEY), Config.getProperty(Config.ADMIN_PASSWORD_KEY))
-        .getPage(AdminPanel.class)
+        new AdminPanel().open()
         .ensureAdminPanelVisible()
         .createUser(name, password).checkAllertMassageAndAccept(BankAllerts.USER_CREATED_SUCCESSFULLY.getMessage()).logout()
         .getPage(LoginPage.class)

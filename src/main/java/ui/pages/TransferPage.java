@@ -4,7 +4,7 @@ import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
-import api.generators.RandomData;
+
 import api.models.UserProfileResponseModel;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requests.ValidatedCrudRequester;
@@ -13,15 +13,16 @@ import api.specs.ResponseSpec;
 
 import static com.codeborne.selenide.Selenide.$;
 
+
 public class TransferPage extends BasePage<TransferPage> {
-    
+
     private SelenideElement accountSelector = $("select.account-selector");
     private SelenideElement reciepAcc = $(Selectors.byAttribute("placeholder", "Enter recipient name"));
     private SelenideElement reciepAccNumber = $(Selectors.byAttribute("placeholder", "Enter recipient account number"));
     private SelenideElement amountInput = $(Selectors.byAttribute("placeholder", "Enter amount"));
     private SelenideElement confirmCheck = $(Selectors.byId("confirmCheck"));
     private SelenideElement buttonSendTransfer = $(Selectors.byText("\uD83D\uDE80 Send Transfer"));
-    String newName = RandomData.getName();
+
     public String url() {
         return "/transfer";
     }
@@ -41,20 +42,20 @@ public class TransferPage extends BasePage<TransferPage> {
     }
 
 
-    public TransferPage transferMoney() {
+    public TransferPage transferMoney(String name) {
         accountSelector.selectOption(1);
-        reciepAcc.sendKeys(newName);
+        reciepAcc.sendKeys(name);
         reciepAccNumber.sendKeys(getSecondAcc());
         amountInput.sendKeys("5000");
         confirmCheck.click();
         buttonSendTransfer.click();
         return this;
     }
-  
 
-    public TransferPage transferMoneyWithNotCorrectAmount() {
+
+    public TransferPage transferMoneyWithNotCorrectAmount(String name) {
         accountSelector.selectOption(1);
-        reciepAcc.sendKeys(newName);
+        reciepAcc.sendKeys(name);
         reciepAccNumber.sendKeys(getSecondAcc());
         amountInput.sendKeys("10001");
         confirmCheck.click();

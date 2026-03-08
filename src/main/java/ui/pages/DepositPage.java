@@ -3,6 +3,7 @@ package ui.pages;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 import com.codeborne.selenide.Condition;
 
@@ -30,6 +31,7 @@ public class DepositPage extends BasePage<DepositPage> {
             return this;
         }
     public DepositPage depositMoneyWithInvalidAmount() {
+        sleep(500);
         accountSelector.selectOption(1);
         amountInput.sendKeys("5001");
         buttonDeposit.click();

@@ -17,6 +17,11 @@ public enum Endpoint {
             CreateUserRequestModel.class,
             CreateUserResponseModel.class
     ),
+    LOGIN(
+            "/auth/login",
+            LoginUserRequest.class,
+            LoginUserRequest.class
+    ),
     DEPOSIT_USER(
                     "accounts/deposit",
                     UserDepositModelRequest.class,

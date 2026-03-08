@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class UserProfileResponseModel extends BaseModel {
 
-    private int id;
+    private long id;
     private String username;
     private String password;
     private String name;

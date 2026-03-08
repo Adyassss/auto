@@ -7,7 +7,11 @@ import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
 
-public class ChangeNameSteps {
+public class ChangeNameSteps extends BaseSteps {
+    public ChangeNameSteps(String username, String password) {
+        super(username, password);
+    }
+
     public static ValidatableResponse changeName(String userToken, String name) {
         return new CrudRequesters(
             RequestSpec.userRequest(userToken),

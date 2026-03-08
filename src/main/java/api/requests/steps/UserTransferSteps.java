@@ -7,7 +7,11 @@ import api.requests.skelethon.requests.CrudRequesters;
 import api.specs.RequestSpec;
 import api.specs.ResponseSpec;
 
-public class UserTransferSteps {
+public class UserTransferSteps extends BaseSteps {
+    public UserTransferSteps(String username, String password) {
+        super(username, password);
+    }
+
     public static ValidatableResponse transferMoney(String userToken, int senderId, int receiverId, float amount){
         return new CrudRequesters(RequestSpec.userRequest(userToken),
         Endpoint.TRANSFER_USER,
