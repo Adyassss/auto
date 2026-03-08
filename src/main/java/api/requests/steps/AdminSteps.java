@@ -15,12 +15,12 @@ public class AdminSteps extends BaseSteps {
 
     public static String createToken() {
         AdminCanCreateUserRequest randomUser = RandomModelGenerator.generate(AdminCanCreateUserRequest.class);
-        return new CrudRequesters(RequestSpec.adminRequest(),
+        SessionStorage.addUsers(randomUser);
+        new CrudRequesters(RequestSpec.adminRequest(),
                 Endpoint.ADMIN_USER,
                 ResponseSpec.created())
-                .post(randomUser)
-                .extract()
-                .header("Authorization");
+                .post(randomUser);
+        return RequestSpec.getUserAuthHeader(randomUser.getUsername(), randomUser.getPassword());
     }
 
     public static AdminCanCreateUserRequest createUser() {

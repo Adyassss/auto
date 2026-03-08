@@ -35,7 +35,8 @@ public class UserCanChangeNameUiTest extends BaseUITest {
                 .getPage(UserDashboard.class)
                 .ensureDashboardVisible()
                 .changeName(name)
-                .checkAllertMassageAndAccept(BankAllerts.NAME_UPDATED_SUCCESSFULLY.getMessage());
+                .checkAllertMassageAndAccept(BankAllerts.NAME_UPDATED_SUCCESSFULLY.getMessage())
+                .ensureNameDisplayed(name);
 
 
         String token = getAuthToken();

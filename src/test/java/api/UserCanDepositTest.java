@@ -1,13 +1,18 @@
 package api;
 import api.generators.RandomData;
+import api.models.AccountModel;
 import api.models.comparison.ModelAssertions;
 
+import api.requests.steps.DataBaseSteps;
+import dao.AccountDao;
+import dao.comparison.DaoAndModelAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.UserDepositSteps;
 import api.requests.steps.UserProfileSteps;
+
 
 public class UserCanDepositTest {
 
@@ -18,13 +23,21 @@ public class UserCanDepositTest {
 
         int senderId = UserProfileSteps.createUserProfileId(userToken);
 
-        float balanceBefore = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
+        AccountModel balanceBeforeProfile = UserProfileSteps.getProfileAccountBalance(userToken, senderId);
+
+        AccountDao before = DataBaseSteps.getAccountById(balanceBeforeProfile.getId());
+
+        DaoAndModelAssertions.assertThat(balanceBeforeProfile, before).match();
 
         UserDepositSteps.depositMoney(userToken, senderId, amount);
 
-        float balanceAfter = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
+        AccountModel balanceAfterProfile = UserProfileSteps.getProfileAccountBalance(userToken, senderId);
 
-        ModelAssertions.assertThatModels(balanceBefore + amount, balanceAfter).match();
+        AccountDao after = DataBaseSteps.getAccountById(balanceAfterProfile.getId());
+
+        DaoAndModelAssertions.assertThat(balanceAfterProfile, after).match();
+
+
     }
 
     @MethodSource("api.generators.RandomData#NegativeAmount")
@@ -35,13 +48,19 @@ public class UserCanDepositTest {
 
         int senderId = UserProfileSteps.createUserProfileId(userToken);
 
-        float balanceBefore = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
+        AccountModel balanceBeforeProfile = UserProfileSteps.getProfileAccountBalance(userToken, senderId);
+
+        AccountDao before = DataBaseSteps.getAccountById(balanceBeforeProfile.getId());
+
+        DaoAndModelAssertions.assertThat(balanceBeforeProfile, before).match();
 
         UserDepositSteps.depositMoneyWithInvalidData(userToken, senderId, amount);
 
-        float balanceAfter = UserProfileSteps.getUserProfileAccountBalance(userToken, senderId);
+        AccountModel balanceAfterProfile = UserProfileSteps.getProfileAccountBalance(userToken, senderId);
 
-        ModelAssertions.assertThatModels(balanceBefore, balanceAfter).match();
+        AccountDao after = DataBaseSteps.getAccountById(balanceAfterProfile.getId());
+
+        DaoAndModelAssertions.assertThat(balanceAfterProfile, after).match();
 
     }
 }
