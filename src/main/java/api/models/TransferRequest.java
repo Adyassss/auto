@@ -3,16 +3,15 @@ package api.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
-public class UserDepositModelRequest extends BaseModel {
-    private long accountId;
-    private float amount;
+public class TransferRequest extends BaseModel {
+    private Long senderAccountId;
+    private Long receiverAccountId;
+    private double amount;
+    private String description;
 }

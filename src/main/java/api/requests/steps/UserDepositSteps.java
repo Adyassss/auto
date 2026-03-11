@@ -13,13 +13,14 @@ public class UserDepositSteps {
         Response response = given()
                 .spec(RequestSpec.userRequest(userToken))
                 .body(UserDepositModelRequest.builder()
-                        .id(senderId)
-                        .balance(amount)
+                        .accountId(senderId)
+                        .amount(amount)
                         .build())
                 .post(Endpoint.DEPOSIT_USER.getUrl());
 
         if (response.statusCode() != 200) {
-            throw new AssertionError("Unexpected status for deposit: " + response.statusCode());
+            throw new AssertionError("Unexpected status for deposit: " + response.statusCode()
+                    + ", request={accountId=" + senderId + ", amount=" + amount + "}, body=" + response.asString());
         }
 
         return response.then();
@@ -29,8 +30,8 @@ public class UserDepositSteps {
         return given()
                 .spec(RequestSpec.userRequest(userToken))
                 .body(UserDepositModelRequest.builder()
-                        .id(senderId)
-                        .balance(amount)
+                        .accountId(senderId)
+                        .amount(amount)
                         .build())
                 .post(Endpoint.DEPOSIT_USER.getUrl())
                 .then()
