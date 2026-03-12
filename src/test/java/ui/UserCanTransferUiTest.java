@@ -67,8 +67,8 @@ public class UserCanTransferUiTest extends BaseUITest {
                 .as(UserProfileModelResponse.class);
 
         float balanceFirstAccount = profileFirstAccount.getAccounts().get(0).getBalance();
-        assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
-        assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
+        assertThat(balanceSecondAccount).isCloseTo(DepositPage.CORRECT_DEPOSIT_AMOUNT, org.assertj.core.data.Offset.offset(DepositPage.AMOUNT_TOLERANCE));
+        assertThat(balanceFirstAccount).isCloseTo(DepositPage.ZERO_BALANCE, org.assertj.core.data.Offset.offset(DepositPage.AMOUNT_TOLERANCE));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class UserCanTransferUiTest extends BaseUITest {
                 .as(UserProfileModelResponse.class);
 
         float balanceFirstAccount = profileSecondAccount.getAccounts().get(1).getBalance();
-        assertThat(balanceSecondAccount).isCloseTo(5000.0f, org.assertj.core.data.Offset.offset(0.01f));
-        assertThat(balanceFirstAccount).isCloseTo(0.0f, org.assertj.core.data.Offset.offset(0.01f));
+        assertThat(balanceSecondAccount).isCloseTo(DepositPage.CORRECT_DEPOSIT_AMOUNT, org.assertj.core.data.Offset.offset(DepositPage.AMOUNT_TOLERANCE));
+        assertThat(balanceFirstAccount).isCloseTo(DepositPage.ZERO_BALANCE, org.assertj.core.data.Offset.offset(DepositPage.AMOUNT_TOLERANCE));
     }
 }

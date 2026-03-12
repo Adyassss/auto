@@ -48,7 +48,7 @@ public class UserCanDepositUiTest extends BaseUITest {
                 .extract()
                 .as(UserProfileModelResponse.class);
         float balanceProfile = profileUserAfterDeposit.getAccounts().get(0).getBalance();
-        assertThat(balanceProfile).isEqualTo(5000.0f);
+        assertThat(balanceProfile).isEqualTo(DepositPage.CORRECT_DEPOSIT_AMOUNT);
     }
     @Test
     @AdminSession

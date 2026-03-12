@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Сделал проверку через бд">
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/FraudCheckResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/TransferRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/models/TransferResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/annotations/FraudCheckMock.java" afterDir="false" />
+    <list default="true" id="14ecadaf-ef3b-420f-9d09-356367ab0eb1" name="Changes" comment="Сделал проверку через мок">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/generators/RandomData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/generators/RandomData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UserDepositModelRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/Endpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserDepositSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserDepositSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserTransferSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/UserTransferSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/UserCanTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/UserCanTransferTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/DepositPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/DepositPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/UserCanDepositUiTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +38,22 @@
     &quot;assignee&quot;: &quot;Adyassss&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Adyassss/auto.git&quot;,
-    &quot;accountId&quot;: &quot;fde6ad36-4354-41c4-a6ff-a12c6c5f9e74&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Adyassss/auto.git",
+    "accountId": "fde6ad36-4354-41c4-a6ff-a12c6c5f9e74"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "Adyassss",
+    "repository": "auto"
   }
-}</component>
+}]]></component>
   <component name="HttpClientOnboardingState">{
   &quot;isOnboardingCommentShown&quot;: true
 }</component>
@@ -139,7 +136,7 @@
     "JUnit.UserCanDepositTest.userCanDeposit (3).executor": "Run",
     "JUnit.UserCanDepositTest.userCanDeposit (4).executor": "Run",
     "JUnit.UserCanDepositTest.userCanDeposit (5).executor": "Run",
-    "JUnit.UserCanDepositTest.userCanDeposit.executor": "Run",
+    "JUnit.UserCanDepositTest.userCanDeposit.executor": "Debug",
     "JUnit.UserCanDepositTest.userCantDepositWithInvalidData (1).executor": "Run",
     "JUnit.UserCanDepositTest.userCantDepositWithInvalidData.executor": "Run",
     "JUnit.UserCanDepositUI.UserDepositWithCorrectDataTest.executor": "Run",
@@ -203,8 +200,8 @@
       <command value="mvn  -Dserver=http://localhost:4112 -Ddb.url=jdbc:postgresql://localhost:5433/nbank -Ddb.username=postgres -Ddb.password=postgres -Dtest=api.UserCanChangeUsernameTest#userCanChangeUsername test " />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserCanTransferWithFraudCheckTest.userCanTransferWithFraudCheck">
-    <configuration name="UserCanDepositTest.userCantDepositWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserCanDepositTest.userCanDeposit">
+    <configuration name="UserCanDepositTest.userCanDeposit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -214,7 +211,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="api" />
       <option name="MAIN_CLASS_NAME" value="api.UserCanDepositTest" />
-      <option name="METHOD_NAME" value="userCantDepositWithInvalidData(float)" />
+      <option name="METHOD_NAME" value="userCanDeposit" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -291,11 +288,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserCanDepositTest.userCanDeposit" />
         <item itemvalue="JUnit.UserCanTransferWithFraudCheckTest.userCanTransferWithFraudCheck" />
         <item itemvalue="JUnit.UserCanTransferWithFraudCheckTest" />
         <item itemvalue="JUnit.UserCanTransferTest.userCantTransferMoney" />
         <item itemvalue="JUnit.UserCanTransferTest.userCanTransferMoney" />
-        <item itemvalue="JUnit.UserCanDepositTest.userCantDepositWithInvalidData" />
       </list>
     </recent_temporary>
   </component>
@@ -500,7 +497,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772973988417</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Сделал проверку через бд">
+      <option name="closed" value="true" />
+      <created>1773231979284</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1773231979284</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Сделал проверку через мок">
+      <option name="closed" value="true" />
+      <created>1773232064780</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1773232064780</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +542,8 @@
     <MESSAGE value="Стабилизируем тесты" />
     <MESSAGE value="Исправил сторейдж/Добавил безопасный поток/Использовал паралелизацию в 3 потока" />
     <MESSAGE value="Сделал проверку через бд" />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделал проверку через бд" />
+    <MESSAGE value="Сделал проверку через мок" />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделал проверку через мок" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -538,21 +552,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
           <line>7</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ui/UserCanTransferUiTest.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java</url>
