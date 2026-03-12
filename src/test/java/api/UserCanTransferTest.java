@@ -38,9 +38,11 @@ public class UserCanTransferTest {
         DaoAndModelAssertions.assertThat(balanceAfterProfile, after).match();
     }
 
+
+
     //Negative cases
 
-    @MethodSource("api.generators.RandomData#NegativeAmount")
+    @MethodSource("api.generators.RandomData#NegativeTransferAmount")
     @ParameterizedTest
     public void userCantTransferMoney(float amount) {
         float positiveAmount = RandomData.getAmount();

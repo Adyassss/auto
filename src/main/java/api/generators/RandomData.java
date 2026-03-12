@@ -34,6 +34,14 @@ public class RandomData {
         );
     }
 
+    public static Stream<Float> NegativeTransferAmount() {
+        return Stream.of(
+                -0.1f,
+                0f,
+                10000.1f
+        );
+    }
+
     public static Stream<Float> PositiveAmount() {
         return Stream.of(
                 4999.9f,
@@ -53,6 +61,7 @@ public class RandomData {
     }
 
     public static float getAmount(){
-        return Math.round(Math.random() * 1000 * 100) / 100f;
+        // Deposit/transfer amount must be strictly positive for valid scenarios.
+        return Math.round((0.1f + (float) Math.random() * 999.9f) * 100) / 100f;
     }
 }

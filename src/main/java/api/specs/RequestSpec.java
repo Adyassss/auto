@@ -50,6 +50,12 @@ public class RequestSpec {
                 .path("token");
     }
 
+    public static RequestSpecification authAsUser(String username, String password) {
+        return defaultRequest()
+                .addHeader("Authorization", getUserAuthHeader(username, password))
+                .build();
+    }
+
     public static String getUserAuthHeader(String username, String password) {
         return new CrudRequesters(
                 RequestSpec.unauthSpec(),
